@@ -1,0 +1,82 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdio.h 7
+.Sh NAME
+.Nm mjo_read ,
+.Nm mjo_read_line
+.Nd stream read routines
+.Sh LIBRARY
+.Lb libmjo
+.Sh SYNOPSIS
+.In mstdio.h
+.Pp
+.Sy
+enum mjo_status {
+.Dl Dv mjo_status_ok
+.Dl Dv mjo_status_error
+.Dl Dv mjo_status_eof
+.Dl Dv mjo_status_truncated
+};
+.No
+.Pp
+.Vt typedef ptrdiff_t mjo_handle_t;
+.Vt typedef ssize_t;
+.Pp
+.Ft int
+.Fo (*mjo_read_t) 
+.Fa "mjo_handle_t" 
+.Fa "void*" 
+.Fa "size_t"
+.Fc
+.Pp
+.Ft int
+.Fo mjo_read
+.Fa "enum mjo_status*const"
+.Fa "size_t*const"
+.Fa "void*"
+.Fa "size_t const"
+.Fa "mjo_read_t const"
+.Fa "mjo_handle_t"
+.Fc
+.Sh INCLUDES
+.D1 In stdio.h and/or In io.h
+.D1 In mstddef.h
+.Sh DESCRIPTION
+Provides routines to read from an abstract stream and object handle.
+.Bl -column "Constant" "Description" -offset indent
+.It Dv mjo_status_ok Ta indicator that the operation completed successfully
+.It Dv mjo_status_error Ta indicator that the operation failed
+.It Dv mjo_status_eof Ta indicator that the end of file has been reached
+.It Dv mjo_status_truncated indicator that data has been truncated
+.El
+.Sh SEE ALSO
+.Xr read 2 /
+.Xr mjo_read 3

@@ -1,0 +1,98 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mr7
+.Sh NAME
+.Nm mjo_r7_hash
+.Nd hash a block of memory
+.Sh SYNOPSIS
+.In mr7.h
+.Ft int
+.Fo mjo_r7_hash
+.Fa "size_t * const o_hash"
+.Fa "void * const i_block"
+.Fa "size_t const i_octets"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_r7_hash
+shall iterate through a block of memory 
+.Po Fa i_block Pc
+mixing bits to create a hash value.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_hash
+pointer to a
+.So size_t Sc 
+that shall be set to the hash value
+.It Fa i_block
+pointer to a fixed length block 
+.Po in octets Pc 
+of memory
+.It Fa i_octets
+length
+.Po in octets Pc 
+of the block of memory
+.El
+.Pp
+If 
+.Fa o_hash
+is nil, a hash value will not be constructed. Otherwise,
+.Fa *o_hash 
+shall be set to the result.
+.Pp
+If
+.Fa i_block
+is nil or
+.Fa i_octets
+is zero,  
+.Fa *o_hash
+shall be set to zero (0).
+.Pp
+If 
+.Fa i_block
+is not nil, the routine shall iterate up until 
+.Fa i_octets 
+is consumed and place the result in
+.Fa *o_hash .
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and errno shall be set to
+.Er EINVAL .
+.Pp
+Upon success, the return code shall be
+.Er MJO_OK .
+.Sh NOTES
+.Pp
+The hash algorithm used is based upon code from the sdbm library package
+authored by Ozan S. Yigit
+.Lk <http://www.cse.yorku.ca/~oz/hash.html>.
+The software written by Ozan is released to the Public Domain.

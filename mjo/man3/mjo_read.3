@@ -1,0 +1,192 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib
+.Sh NAME
+.Nm mjo_read
+.Nd read data from an abstract stream
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft int
+.Fo mjo_read
+.Fa "enum mjo_status *const o_status"
+.Fa "size_t * const o_octets"
+.Fa "void * o_block"
+.Fa "size_t const i_count"
+.Fa "mjo_read_t const i_read"
+.Fa "mjo_handle_t io_handle"
+.Fc
+.Sh DESCRIPTION
+Read 
+.Fa i_count
+octets into
+.Fa o_block
+using the function pointer
+.Fa i_read
+to read data from the stream 
+.Fa io_handle .
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_status
+pointer to an 
+.So enum mjo_status Sc 
+that shall be set to one of the following four (4) indicators:
+.Po 1 Pc
+.Er mjo_status_ok , 
+.Po 2 Pc
+.Er mjo_status_invalid , 
+.Po 3 Pc
+.Er mjo_status_eof ,
+or
+.Po 4 Pc
+.Er mjo_status_truncated
+.It Fa o_octets
+pointer to a 
+.So size_t Sc 
+that shall be set to the count of octets read
+.It Fa o_block
+block of memory that shall store input
+.It Fa i_count
+count of octets to read from a stream 
+.It Fa i_read
+an opaque input function
+.It Fa io_handle
+an opaque stream handle 
+.El
+.Pp
+If
+.Fa o_status
+is nil, it shall not be set.
+.Pp
+If 
+.Fa o_octets
+is nil, it shall not be set. 
+.Pp
+If either
+.Fa o_block
+or 
+.Fa i_read
+is nil
+.Fa *o_status
+shall be set to 
+.Er mjo_status_invalid
+and
+.Er errno
+shall be set to
+.Er EINVAL .
+.Pp
+If 
+.Fa i_count
+is zero, 
+.Fa *o_status
+shall be set to 
+.Er mjo_status_eof .
+.Pp
+If the number of octets read from the stream is equal to
+.Fa i_count
+.Fa *o_status
+shall be set to
+.Er mjo_status_ok .
+.Pp
+If the number of octets read from the stream is greater than zero
+but less than 
+.Fa i_count ,
+.Fa *o_status
+shall be set to
+.Er mjo_status_truncated .
+.Pp 
+If the number of octets read from the stream is zero,
+.Fa *o_status
+shall be set to
+.Er mjo_status_eof .
+.Pp
+.Fa *o_octets 
+shall be set to the count of octets that have been stored in 
+.Fa o_block .
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and errno shall be set to
+.Er EINVAL .
+.Pp
+Upon success, the return code shall be
+.Er MJO_OK .
+Otherwise, the return code shall be 
+.Er MJO_FAIL 
+and errno shall be modified by the call made to 
+.Fa i_read .
+.Pp
+If the return code is
+.Er MJO_OK ,
+.Er errno
+shall be unchanged and
+.Fa *o_status
+shall be 
+.Er mjo_status_ok
+or
+.Er mjo_status_truncated .
+.Sh NOTES
+.Pp
+For non-blocking streams, calling this routine may not have
+the desired affect.
+.Pp
+After reading from the stream and an error condition or
+the accumulated number of octets read is less than 
+.Fa i_count
+and errno is equal to
+.Er EINTR
+or
+.Er EAGAIN
+.Po Er EWOULDBLOCK Pc
+the routine shall continue to read from the stream until
+one of the following conditions is met:
+.Bl -type bullet
+.It
+an error other than 
+.Er EINTR
+or
+.Er EGAIN
+occurs
+.It
+the end of file is reached
+.It
+the accumulated number of octets read is equal to
+.Fa i_count .
+.El
+.Pp
+.Fa o_block
+must be large enough to store
+.Fa i_count
+octets.
+.Sh SEE ALSO
+.Xr open 2 ,
+.Xr read 2 , 
+.Xr errno 3

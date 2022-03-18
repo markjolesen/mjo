@@ -1,0 +1,20 @@
+CC0 1.0 Universal --- Public Domain
+
+To the extent possible under law, Mark J. Olesen has waived all copyright
+and related or neighboring rights to this file (README). This work is
+published from: United States.
+
+Full text of this license can be found in '${MJO_HOME}/licenses/CC-CC0'
+or visit 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt' or
+send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+_______________________________________________________________________________
+
+INTRODUCTION
+
+mjo is free software (<https://www.gnu.org/philosophy/free-sw.html>),
+which provides a thin portable shim library. 
+
+BUILDING
+
+This directory contains GNU AUTOTOOLS scripts for building mjo.
+See 'INSTALL' file in this directory for build instructions.`

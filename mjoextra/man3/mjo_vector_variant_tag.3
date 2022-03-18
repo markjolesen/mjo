@@ -1,0 +1,57 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt mvector
+.Sh NAME
+.Nm mjo_vector_type
+.Nd get the string representation of a variant
+.Sh SYNOPSIS
+.In mvector.h
+.Ft void
+.Fo "unsigned char const*"
+.Fa "enum mjo_vector_variant const i_type"
+.Fc
+.Sh DESCRIPTION
+Get the string representation of a variant.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa i_type
+a value from the 
+.So enum mjo_vector_variant Sc
+list
+.El
+.Sh RETURN VALUE
+.Pp
+If 
+.Fa i_type
+is invalid, an empty string is returned.
+.Pp
+A string representing the data type of a variant.

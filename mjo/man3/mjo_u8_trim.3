@@ -1,0 +1,125 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mu8
+.Sh NAME
+.Nm mjo_u8_trim
+.Nm mjo_u8_trim_left
+.Nm mjo_u8_trim_right
+.Nd remove leading and/or trailing white-space characters 
+.Sh SYNOPSIS
+.In mu8.h
+.Ft void
+.Fo mjo_u8_trim
+.Fa "unsigned char *io_str"
+.Fc
+.Ft void
+.Fo mjo_u8_trim_left
+.Fa "unsigned char *io_str"
+.Fc
+.Ft void
+.Fo mjo_u8_trim_right
+.Fa "unsigned char *io_str"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_u8_trim
+is a convenience routine that shall invoke both
+.Fn mjo_u8_trim_left
+and
+.Fn mjo_u8_trim_right .
+.Pp
+.Fn mjo_u8_trim_left 
+shall remove leading white-space characters.
+.Pp
+.Fn mjo_u8_trim_right 
+shall remove trailing white-space characters.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa io_str
+zero terminated string
+.El
+.Pp
+If
+.Fa io_str
+is nil or empty or
+it shall not be trimmed.
+.Pp
+.Fn mjo_u8_trim_left 
+shall iterate from the beginning of the string up until a termination octet is encountered or a non white-space character is found. 
+.Pp
+If leading white-space is found, octets from the position of the first
+non white-space character to the end of the string shall be shifted
+left to the beginning of the string.
+.Pp
+.Fn mjo_u8_trim_right 
+shall iterate from the beginning of the string up until the end of
+the string keeping track of the position of the white-space character
+encountered.  If the remaining sequence up until the end of the
+string is white-space, the saved offset shall be replaced with a
+termination octet.
+.Pp
+.Sh NOTES
+Invalid UTF-8 characters shall be considered non-white-space characters.
+.Sh SEE ALSO
+.Xr mjo_utf8_is_whitespace
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <mstdio.h>
+#include <mstring.h>
+#include <mu8.h>
+
+int
+  main()
+{
+  unsigned char utf8string[] = { "        Non White\r\n" };
+
+  printf("before trim: %s\n", (char *)utf8string);
+  printf("        len: %lu\n", strlen((char *)utf8string));
+  mjo_u8_trim(utf8string);
+  printf(" after trim: %s\n", (char *)utf8string);
+  printf("        len: %lu\n", strlen((char *)utf8string));
+
+  return 0;
+}
+.Ed
+.Pp
+OUTPUT
+.Bd -literal -offset indent
+before trim:         Non White
+
+        len: 19
+ after trim: Non White
+        len: 9
+.Ed
+.Pp
+SOURCE
+.Pp
+.D1 Pa ${MJO_HOME}/examples/trim.c

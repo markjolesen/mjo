@@ -1,0 +1,158 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt marg
+.Sh NAME
+.Nm mjo_arg_option
+.Nd insert an option into a mjo_arg_t container
+.Sh SYNOPSIS
+.In marg.h
+.Ft int
+.Fo mjo_arg_option
+.Fa "mjo_arg_t const io_arg"
+.Fa "enum mjo_arg_option_mask const i_option_mask"
+.Fa "unsigned char const * i_attribute"
+.Fa "unsigned char const * i_description"
+.Fa "enum mjo_arg_argument_mask const i_argument_mask"
+.Fa "enum mjo_vector_variant const i_variant"
+.Fc
+.Sh DESCRIPTION
+Insert an option into a
+.Vt mjo_arg_t
+container.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa io_arg 
+pointer to a
+.So mjo_arg_t Sc
+to insert the option into 
+.It Fa i_option_mask
+rules that define the option 
+.It Fa i_attribute
+the name of the option
+.It Fa i_description
+short description explaining what the option is about
+.It Fa i_argument_mask
+rules that describe the argument's attributes
+.It Fa i_variant
+data type of the option
+.El
+.Pp
+If 
+.Fa io_arg
+is nil or
+.Fa i_attribute
+is empty or nil
+it shall be denoted as an invalid argument.
+.Pp
+.Vt enum mjo_arg_option_mask
+.Bl -column "Constant" "Description" -offset indent
+.It mjo_arg_option_mask_short Ta option switch is a short identifier 
+.So - Sc
+.It mjo_arg_option_mask_long Ta option switch is a long identifier
+.So -- Sc
+.It mjo_arg_option_mask_required  Ta option is required
+.It mjo_arg_option_mask_vector Ta option can be repeated (array)
+.El
+.Pp
+.Vt enum mjo_arg_argument_mask
+.Bl -column "Constant" "Description" -offset indent
+.It mjo_arg_argument_mask_required Ta argument is required
+.El
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and errno shall be set to
+.Er EINVAL .
+.Pp
+If an option with the attribute 
+.Fa i_attribute
+already exists, the return code shall be
+.Er MJO_FAIL
+and errno shall be set to
+.Er EEXIST .
+.Pp
+If the option was sucessfully inserted, the return code shall be
+.Er MJO_OK .
+.Sh NOTES
+Attributes may be comprised of one or more ASCII alpha-numeric 
+('a-z', 'A-Z', '0-9') characters and the hypen/minus ('-') character.
+However, a hypen must not be the first or last character.
+.Pp
+.Fa i_variant
+must be one of the following variants:
+.Bl -type bullet 
+.It 
+mjo_vector_variant_ptrstr
+.It 
+mjo_vector_variant_short
+.It 
+mjo_vector_variant_ushort
+.It 
+mjo_vector_variant_bool
+.It 
+mjo_vector_variant_int
+.It 
+mjo_vector_variant_uint
+.It 
+mjo_vector_variant_long
+.It 
+mjo_vector_variant_ulong
+.It 
+mjo_vector_variant_size_t
+.It 
+mjo_vector_variant_ptrdiff_t
+.It 
+mjo_vector_variant_double
+.El
+.Pp
+A copy of 
+.Fa i_attribute 
+and
+.Fa i_description
+is created and stored internally.
+.Pp
+To process operands, an option with attribute 
+.Vt mjo_arg_option_internal_operand_str
+shall be created as follows:
+.Bd -literal -offset indent
+  mjo_arg_option(
+    args, 
+    mjo_arg_option_mask_vector, 
+    (unsigned char*)mjo_arg_option_internal_operand_str, 
+    (unsigned char*)"list of files", 
+    mjo_arg_argument_mask_required_no,
+    mjo_vector_variant_ptrstr);
+.Ed
+.Sh SEE ALSO
+.Xr mjo_arg_parse 3
+.Xr mjo_arg_parse_block 3
+.Xr mjo_arg_parse_file 3

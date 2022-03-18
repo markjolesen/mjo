@@ -1,0 +1,177 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib.h 7
+.Sh NAME
+.Nm mjo_abort ,
+.Nm mjo_add_size_t ,
+.Nm mjo_calloc ,
+.Nm mjo_free ,
+.Nm mjo_malloc , 
+.Nm mjo_realloc ,
+.Nm mjo_mul_size_t , 
+.Nm mjo_path_full ,
+.Nm mjo_path_join ,
+.Nm mjo_search_binary , 
+.Nm mjo_strdup
+.Nd standard library routines
+.Sh LIBRARY
+.Lb libmjo
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft void 
+.Fo mjo_abort
+.Fc
+.Ft int
+.Fo mjo_add_size_t
+.Fa "size_t * const"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fc
+.Ft void 
+.Fo mjo_calloc 
+.Fa "void **const"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fc
+.Ft void
+.Fo mjo_free
+.Fa "void **const"
+.Fc
+.Ft void
+.Fo mjo_malloc 
+.Fa "void **const"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fc
+.Ft void
+.Fo mjo_realloc
+.Fa "void **const"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fc
+.Ft int
+.Fo mjo_mul_size_t
+.Fa "size_t * const"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fc
+.Ft void
+.Fo mjo_path_full 
+.Fa "unsigned char **const"
+.Fa "unsigned char const *"
+.Fc
+.Ft void
+.Fo mjo_path_join 
+.Fa "unsigned char **const"
+.Fa "unsigned char const *"
+.Fa "unsigned char const *"
+.Fa "unsigned char const *"
+.Fc
+.Ft void
+.Fo mjo_search_binary
+.Fa "int *const"
+.Fa "size_t * const"
+.Fa "void const *"
+.Fa "size_t const"
+.Fa "size_t const"
+.Fa "int (*) (void const*, void const*)"
+.Fa "void const *const"
+.Fc
+.Ft void 
+.Fo mjo_strdup 
+.Fa "unsigned char const **const"
+.Fa "unsigned char const *"
+.Fc
+.Sh INCLUDES
+.D1 In stddef.h
+.D1 In stdlib.h
+.Sh DESCRIPTION
+Provides additional memory and overflow routines. The memory routines may
+be used to replace the standarad library routines. These routines will 
+abort the application on failure.
+.Sh SEE ALSO
+.Xr abort 3 /
+.Xr mjo_abort 3 ,
+.Xr calloc 3 /
+.Xr mjo_calloc 3 ,
+.Xr free 3 /
+.Xr mjo_free 3 ,
+.Xr malloc 3 / 
+.Xr mjo_malloc 3 ,
+.Xr realloc 3 /
+.Xr mjo_realloc 3 ,
+.Xr strdup 3 /
+.Xr mjo_strdup 3 ,
+.Xr mjo_add_size_t 3 ,
+.Xr mjo_mul_size_t 3 ,
+.Xr mjo_path_full 3 , 
+.Xr mjo_path_join 3,
+.Xr mjo_search_binary 3,
+.Sh NOTES
+All memory allocation routines throughout the
+.Lb mjo
+calls
+.Fn mjo_abort
+when an allocation fails.
+.Pp
+The rationale to abort is that many operating systems are configured to
+terminate on an allocation failure, which renders this code superfluous
+(it will never be reached). However, for systems that are configured to
+return nil,
+.Fn mjo_abort
+provides a consistent mechanism to deal with the failure.
+.Pp 
+Some coding style guides recommend checking for the return of nil and
+handling the error. However, much software does not, which leads
+to abnormal termination of the process due to an access violation.
+.Pp
+Using
+.Fn mjo_abort
+upon memory allocation failure alleviates the need for software to
+constantly check for and handle nil pointers.  Incidentally, all of the
+memory allocation calls are wrappers around the standard library calls
+.Po 
+.Xr malloc 3 ,
+.Xr free 3 ,
+.Xr calloc 3 ,
+.Xr realloc 3 ,
+.Xr strdup
+.Pc
+.Pp
+Consequently, mixing the standard library memory allocation routines with 
+.Lb mjo
+memory allocation routines shall not cause issues.  That is, system
+library calls can be safely mixed.
+.Pp
+In conclusion, aborting the program when memory is not available is
+reasonable. If software does not desire the specific behavior that
+.Lb mjo
+provides, then do not use it.

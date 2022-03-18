@@ -1,0 +1,59 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mxywh.h 7
+.Sh NAME
+.Nm mxywh.h
+.Nd rectangle data structure
+.Sh LIBRARY
+.Lb libmjo
+.Sh SYNOPSIS
+.In mxywh.h
+.Pp
+.Sy
+struct mjo_xywh {
+.Dl Vt "ssize_t" Va "m_pos_x" No ";"
+.Dl Vt "ssize_t" Va "m_pos_y" No ";"
+.Dl Vt "size_t" Va "m_len_x" No ";"
+.Dl Vt "size_t" Va "m_len_y" No ";"
+};
+.No
+.Sh INCLUDES
+.D1 In mstddef.h
+.Sh DESCRIPTION
+Provides a rectangle data structure
+.Pp
+.Vt struct mjo_xywh 
+.Bl -column "Field" "Description" -offset indent
+.It m_pos_x Ta x position
+.It m_pos_y Ta y position
+.It m_len_x  Ta x length (width)
+.It m_len_y Ta  y length (height)
+.El

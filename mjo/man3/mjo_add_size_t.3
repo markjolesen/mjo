@@ -1,0 +1,150 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mjo_stdlib
+.Sh NAME
+.Nm mjo_add_size_t
+.Nd compute the sum of two size_t values
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft int
+.Fo mjo_add_size_t
+.Fa "size_t * const o_sum"
+.Fa "size_t const i_a"
+.Fa "size_t const i_b"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_add_size_t
+shall add the first addend
+.Fa i_a
+with the second addend
+.Fa i_b
+and store the sum 
+.Po result Pc in 
+.Fa *o_sum 
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_sum
+pointer to a 
+.So size_t Sc 
+that shall be set to the sum of the addition operation
+.Pp
+.It Fa i_a
+first addend
+.It Fa i_b
+second addend
+.El
+.Pp
+If an overflow does not occur, the sum of the addition operation
+.Po Fa i_a No + Fa i_b Pc 
+shall be stored in 
+.Fa *o_sum .
+.Pp
+If an overflow occurs,
+.Fa *o_sum
+shall be set to 
+.Dv SIZE_MAX .
+.Sh RETURN VALUES
+If an overflow does not occur, the return code shall be 
+.Er MJO_OK .
+Otherwise, the return code shall be 
+.Er MJO_FAIL 
+and errno shall be set to
+.Er ERANGE .
+.Sh NOTES
+The sum of the addition operation may equal 
+.Dv SIZE_MAX .
+Thus, the caller shall always check the return value to confirm if
+the operation was the result of an overflow condition.
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <errno.h>
+#include <stdint.h>
+/**/
+#include <mstdio.h>
+#include <mstdlib.h>
+
+int
+  main()
+{
+  int rc;
+  size_t sum;
+
+  errno = 0;
+  rc = mjo_add_size_t(&sum, SIZE_MAX, 1);
+
+  printf("%zu + 1 = %zu\n", SIZE_MAX, sum);
+
+  if (SIZE_MAX == sum)
+    {
+      printf("success (SIZE_MAX = sum)\n");
+    }
+  else
+    {
+      printf("fail (SIZE_MAX != sum)\n");
+    }
+
+  if (MJO_OK == rc)
+    {
+      printf("failed (no overflow)\n");
+      rc = -1;
+    }
+  else
+    {
+      printf("success (overflow)\n");
+      rc = 0;
+    }
+
+  if (ERANGE == errno)
+    {
+      printf("success (errno = ERANGE)\n");
+    }
+  else
+    {
+      printf("fail (errno != ERANGE)\n");
+      rc = -1;
+    }
+
+  return rc;
+}
+.Ed
+.Pp
+OUTPUT
+.Bd -literal -offset indent
+18446744073709551615 + 1 = 18446744073709551615
+success (SIZE_MAX = sum)
+success (overflow)
+success (errno = ERANGE)
+.Ed
+.Pp
+SOURCE
+.Pp
+.D1 Pa ${MJO_HOME}/examples/add.c

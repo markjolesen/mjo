@@ -1,0 +1,256 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mutf8
+.Sh NAME
+.Nm mjo_utf8_compose
+.Nd compose an UTF-8 character from a zero terminated string
+.Sh SYNOPSIS
+.In mutf8.h
+.Ft void
+.Fo mjo_utf8_compose 
+.Fa "enum mjo_status *const o_status"
+.Fa "unsigned char const **const o_tail"
+.Fa "struct mjo_utf8 *const o_peek"
+.Fa "unsigned char * i_head"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_utf8_compose
+is an UTF-8 iterator. For each invocation, the routine shall parse 
+a sequence of octets from
+.Fa i_head 
+into an UTF-8 character.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_status
+pointer to an 
+.So enum mjo_status Sc 
+that shall be set to one of the following four (4) indicators:
+.Po 1 Pc
+.Er mjo_status_ok , 
+.Po 2 Pc
+.Er mjo_status_invalid , 
+.Po 3 Pc
+.Er mjo_status_eof ,
+or
+.Po 4 Pc
+.Er mjo_status_truncated
+.It Fa o_tail 
+pointer to an
+.So unsigned char * Sc 
+that shall be set to the address of the beginning of the next sequence.
+.It Fa o_peek 
+pointer to a
+.So struct mjo_utf8 Sc
+that shall be set with a sequence of octets
+.It Fa i_head 
+pointer to a zero terminated string comprised of 
+.So unsigned char Sc 
+octets.
+.El
+.Pp
+If 
+.Fa o_status 
+is nil, it shall not be set.
+.Pp
+If 
+.Fa o_tail 
+is nil, it shall not be set.
+.Pp
+If 
+.Fa o_peek
+is nil, the routine shall set
+.Fa o_status
+to 
+.Er mjo_status_invalid
+and 
+.Fa o_tail
+to nil.
+.Pp
+If
+.Fa i_head
+is nil, the routine shall set
+.Fa *o_status
+to
+.Er mjo_status_invalid
+and
+.Fa *o_tail
+shall be set to
+nil.
+.Pp
+If 
+.Fa *i_head
+is nil, the routine shall set
+.Fa *o_status
+to
+.Er mjo_status_eof .
+.Pp
+If 
+.Fa *i_head
+is not a valid leading UTF-8 octet,
+.Fa *o_status
+shall be set to 
+.Er mjo_status_invalid
+and
+.Fa *o_tail
+shall be set to
+.Fa i_head .
+.Pp
+If
+.Fa *i_head
+is a legal leading UTF-8 octet, the routine shall iterate through
+the string until an UTF-8 character is composed or an
+invalid or termination octet is encountered.
+.Pp
+If the termination octet is encountered 
+.Fa *o_status
+shall be set to
+.Er mjo_status_ok .
+.Pp
+If the sequence is too long,
+.Fa *o_status
+shall be set to
+.Er mjo_status_truncated 
+.Pp
+When processing stops,
+.Fa *o_tail
+shall be set to the address of the beginning of the next sequence 
+or offending octet.  In addition, 
+.Fa o_peek 
+members shall be set as follows:
+.Bl -type bullet
+.It
+.Fa m_legal 
+shall be set to whether or not the UTF-8 character is valid
+.It
+.Fa m_octets 
+shall be set to the count of octets stored in
+.Fa m_block
+.It
+.Fa m_block 
+shall be filled with a sequence of octets
+.El
+.Sh NOTES
+.Pp
+.Fa *o_peek
+member
+.Fa m_octets
+shall contain the number of octets in member
+.Fa m_block .
+.Pp
+.Fa *o_peek
+member
+.Fa m_block
+shall contain a sequence of octets up until processing stopped or
+the maximum size of the buffer was reached.
+.Pp
+If 
+.Fa *o_status
+is 
+.Er mjo_status_ok
+.Fa *o_peek
+member
+.Fa m_legal
+shall be true.
+.Pp
+If 
+.Fa *o_status
+is not 
+.Er mjo_status_ok
+member
+.Fa m_legal
+shall be false.
+.Pp
+To parse a sequence of UTF-8 characters,
+.Fa o_tail
+shall be used in subsequent calls to
+.Fn mjo_utf8_compose
+in place of argument
+.Fa i_head .
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <mstdio.h>
+#include <mutf8.h>
+
+int
+  main()
+{
+  unsigned char const hello_greek[] = { "γεια σας" };
+  unsigned char const *tail = hello_greek;
+  enum mjo_status status;
+  struct mjo_utf8 peek;
+  unsigned offset = 0;
+  int exit_code = 0;
+
+  do
+    {
+      mjo_utf8_compose(&status, &tail, &peek, tail);
+
+      if (mjo_status_eof == status)
+        {
+          printf("End of stream encountered\n");
+          break;
+        }
+
+      if (mjo_status_ok != status)
+        {
+          printf("Invalid utf8 sequence: offset=%u\n", offset);
+          exit_code = -1;
+          break;
+        }
+
+      printf("Offset[%u]=%s\n", offset, peek.m_block);
+      offset += peek.m_octets;
+    }
+  while (1);
+
+  return exit_code;
+}
+.Ed
+.Pp
+OUTPUT
+.Bd -literal -offset indent
+Offset[0]=γ
+Offset[2]=ε
+Offset[4]=ι
+Offset[6]=α
+Offset[8]= 
+Offset[9]=σ
+Offset[11]=α
+Offset[13]=ς
+End of stream encountered
+.Ed
+.Pp
+SOURCE
+.Pp
+.D1 Pa ${MJO_HOME}/examples/compose.c
+.Sh SEE ALSO
+.Xr mjo_u8_validate 3

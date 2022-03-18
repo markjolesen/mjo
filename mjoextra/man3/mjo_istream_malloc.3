@@ -1,0 +1,135 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt mistream
+.Sh NAME
+.Nm mjo_istream_free ,
+.Nm mjo_istream_block_malloc ,
+.Nm mjo_istream_file_malloc
+.Nd allocate or release a mjo_istream_t memory resource
+.Sh SYNOPSIS
+.In mistream.h
+.Ft void
+.Fo mjo_istream_mem_free
+.Fa "mjo_istream_t *const io_obj"
+.Fc
+.Ft void
+.Fo mjo_istream_block_malloc
+.Fa "mjo_istream_t *const o_obj"
+.Fa "enum mjo_istream_option const i_option"
+.Fa "void const *i_block"
+.Fa "size_t const i_octets"
+.Fc
+.Ft void
+.Fo mjo_istream_file_malloc
+.Fa "mjo_istream_t *const o_obj"
+.Fa "enum mjo_istream_option const i_option"
+.Fa "mjo_read_t const i_read"
+.Fa "mjo_handle_t const i_handle"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_istream_free 
+release a 
+.Vt mjo_istream_t
+memory resource.
+.Pp
+.Fn mjo_istream_block_malloc
+allocate a 
+.Vt mjo_istream_t
+memory resource from a block of memory.
+.Pp
+.Fn mjo_istream_file_malloc
+allocate a 
+.Vt mjo_istream_t
+memory resource from an abstract stream.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_obj
+pointer to  a
+.So mjo_istream_t * Sc
+that shall be set to the address of a newly created memory resource
+.It Fa io_obj
+pointer to a
+.So mjo_istream_t * Sc
+that shall be an address of a previously allocated memory resource
+.It Fa i_option
+reserved; currently not used
+.It Fa i_block
+The block of memory to read from
+.It Fa i_octet
+count of octets to read from 
+.Fa i_block
+.El
+.Pp
+.Bl -tag  -width 5
+.It Release Resource
+If both
+.Fa io_obj
+and
+.Fa *io_obj
+is not nil,
+any internal resources held by the object will be released.
+Following,
+.Xr mjo_free 3
+shall be invoked on
+.Fa io_obj .
+.It Allocate Resource
+.Xr mjo_malloc 3
+shall be invoked to create a
+.Vt mjo_istream_t
+object followed by allocation of any internal resources.
+.El
+.Pp
+If
+.Fa io_obj
+is nil, 
+it shall be denoted as an invalid argument.
+.Pp
+If 
+.Fa i_block
+or
+.Fa i_read
+is nil, 
+.Fa *io_obj
+shall be set to nil and it shall be denoted as an invalid argument.
+.Sh RETURN VALUES
+If any of the arguments are invalid, errno shall be set to
+.Er EINVAL .
+.Sh NOTES
+The block of memory is not managed by this object. If the memory
+resource was allocated dynamically, it must be released by the 
+caller.
+.Pp
+The block of memory is not copied internally. Therefore, it must
+remain valid until after the stream variant is released.
+.Sh FUTURE
+Possibly create an option to allocate and copy the block of memory
+internally.

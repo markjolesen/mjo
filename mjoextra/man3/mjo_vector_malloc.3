@@ -1,0 +1,147 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt mvector
+.Sh NAME
+.Nm mjo_vector_free ,
+.Nm mjo_vector_malloc
+.Nd allocate or release a mjo_vector_t memory resource
+.Sh SYNOPSIS
+.In mvector.h
+.Ft void
+.Fo mjo_vector_free
+.Fa "mjo_vector_t *const io_obj"
+.Fc
+.Ft void
+.Fo mjo_vector_malloc
+.Fa "mjo_vector_t *const o_obj"
+.Fa "size_t const i_count"
+.Fa "enum mjo_vector_variant const i_variant"
+.Fa "size_t const i_size_struct"
+.Fa "mjo_vector_discharge_t const i_discharge"
+.Fc
+.Sh DESCRIPTION
+A 
+.Fa mjo_vector
+is a homegenous array 
+.Po vector Pc
+of a specific data type 
+.Po Vt mjo_vector_variant Pc
+which is dynmically resized. Internally, the array will always grow 
+by a number of elements but never shrunk.
+.Pp
+.Fn mjo_arg_free 
+release a 
+.Vt mjo_vector_t
+memory resource.
+.Pp
+.Fn mjo_vector_malloc 
+allocate a 
+.Vt mjo_vector_t
+memory resource.
+.Pp
+Following is a description of the arguments.
+.Bl -tag  -width 5
+.It Fa o_obj 
+pointer to a
+.So mjo_vector_t * Sc
+that shall be set to the address of a newly created memory resource
+.It Fa io_obj 
+pointer to a
+.So mjo_vector_t * Sc
+that shall be an address of a previously allocated memory resource
+.It Fa i_count
+the number of preallocated slots in the vector to create
+.It Fa i_variant
+the data type of the vector
+.It Fa i_size_struct
+if 
+.Fa i_variant
+is of type
+.Vt mjo_var_variant_struct
+it shall denote the size of the data structure in octets. 
+Otherwise, the argument shall be ignored.
+.Pp
+.It Fa i_discharge
+pointer to
+.So mjo_vector_discharge_t  Sc
+that shall be invoked on each element when the resource is released
+.Po Fn mjo_vector_free Pc .
+.El
+.Pp
+.Bl -tag  -width 5
+.It Release Resource
+if both
+.Fa io_obj
+and
+.Fa *io_obj
+is not nil,
+any internal resources held by the object will be released.
+Following,
+.Xr mjo_free 3
+shall be invoked on
+.Fa io_obj .
+.It Allocate Resource
+.Xr mjo_malloc 3
+shall be invoked to create a
+.Vt mjo_arg_t
+object followed by allocation of any internal resources.
+.El
+.Pp
+If
+.Fa io_obj
+is nil, it shall be denoted as an invalid argument.
+.Sh RETURN VALUES
+If any of the arguments are invalid, errno shall be set to
+.Er EINVAL .
+.Sh NOTES
+It is assumed that any object inserted/pushed onto the vector are
+compatible with the discharge method, if any. That is, the method 
+knows how to validate and destruct the object.
+.Pp
+The vector can be cast to the variant type and indexed like a 
+.So C Sc
+array. 
+.Pp
+Internally, the vector will always allocate at least one object 
+and set all of it's members to zero's.  
+.Pp
+Before accessing the vector, 
+.Fn mjo_vector_count
+shall be invoked to validate the index against the actual number
+of elements.
+.Pp
+Indexing the first element of the array when 
+.Fn mjo_vector_count 
+is zero is considered an error. However, there is nothing to
+prevent this scenario from being abused.
+.Sh SEE ALSO
+.Xr mjo_vector_clear 3
+.Xr mjo_vector_push 3

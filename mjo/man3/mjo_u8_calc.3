@@ -1,0 +1,92 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mu8
+.Sh NAME
+.Nm mjo_u8_calc
+.Nd determine if an octet is the start of a UTF-8 sequence
+.Sh SYNOPSIS
+.In mu8.h
+.Ft void
+.Fo mjo_u8_calc
+.Fa "int *const o_legal"
+.Fa "size_t *const o_octets"
+.Fa "unsigned char const i_octet"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_u8_calc
+shall determine if
+.Fa i_octet
+is the start of a UTF-8 sequence.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_legal
+pointer to an
+.So int Sc
+.Po boolean Pc
+indicator that shall be set to whether or not the octet is
+valid 
+.It Fa o_octets 
+pointer to a 
+.So size_t Sc 
+that shall be set to the count of octets required to compose a complete
+UTF-8 character.
+.It Fa i_octet 
+octet to validate
+.El
+.Pp
+If
+.Fa o_legal
+is nil, it shall not be set.
+.Pp
+If 
+.Fa o_octets.
+is nil, it shall not be set.
+.Pp
+If 
+.Fa i_octet
+is the start of an UTF-8 sequence,
+.Fa *o_legal
+shall be set to true and
+.Fa *o_octets
+shall be set to the count of octets required to compose the
+character.
+.Pp
+If 
+.Fa i_octet
+is an invalid leading UTF-8 byte,
+.Fa *o_legal
+shall be set to false and
+.Fa *o_octets
+shall be set to zero.
+.Sh SEE ALSO
+.Xr mjo_u8_validate 3
+.Xr mjo_u8_validate_nth_sequence

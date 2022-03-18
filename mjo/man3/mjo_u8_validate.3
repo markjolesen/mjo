@@ -1,0 +1,141 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mu8
+.Sh NAME
+.Nm mjo_u8_validate
+.Nd validate a zero terminated UTF-8 string
+.Sh SYNOPSIS
+.In mu8.h
+.Ft void 
+.Fo mjo_u8_validate 
+.Fa "int *const o_valid"
+.Fa "unsigned char **const o_last"
+.Fa "unsigned char const *i_str"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_u8_validate
+iterates through a zero terminated UTF-8 string determining if it
+is valid sequence.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_valid 
+pointer to an
+.So int Sc 
+.Po boolean Pc 
+indicator that shall state whether or not the UTF-8 string
+is valid
+.It Fa i_str 
+zero terminated UTF-8 string to validate
+.It Fa o_last 
+pointer to an
+.So unsigned char* Sc 
+that shall be set to the address of the terminating octet
+.El
+.Pp
+If 
+.Fa o_valid
+is nil, it shall not be set. 
+.Pp
+If 
+.Fa o_last
+is nil, it shall not be set. 
+.Pp
+If 
+.Fa i_str
+is nil, the routine shall set 
+.Fa *o_valid
+to false and 
+.Fa *o_last 
+to nil. 
+.Pp
+If
+.Fa i_str
+is a valid UTF-8 sequence,
+.Fa *o_valid 
+shall be set to true and
+.Fa *o_last 
+shall be set to the address of the end of the string
+.Po termination octet Pc
+.Pp
+If 
+.Fa i_str
+is not a valid UTF-8 sequence,
+.Fa *o_valid
+shall be set to false and
+.Fa *o_last
+shall be set to the address of the illegal octet.
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <mstdio.h>
+#include <mu8.h>
+
+int
+  main()
+{
+  const unsigned char *utf8strings[]
+    = { (unsigned char const *)"γεια σας",
+        (unsigned char const *)"\xf0\xa4\xadz",
+        0 };
+  unsigned char *last;
+  unsigned char const *ptr;
+  unsigned slot;
+  int valid;
+
+  for (slot = 0; utf8strings[slot]; slot++)
+    {
+      mjo_u8_validate(&valid, &last, utf8strings[slot]);
+
+      printf("valid=%s; terminator=%02x\n", (valid ? "yes" : "no"), *last);
+
+      for (ptr = utf8strings[slot]; ptr != last; ptr++)
+        {
+          printf("\%x02", *ptr);
+        }
+      printf("\n");
+    }
+
+  return !valid;
+}
+.Ed
+.Pp
+OUTPUT
+.Pp
+valid=yes; terminator=00
+ce02b302ce02b502ce02b902ce02b1022002cf028302ce02b102cf028202
+valid=no; terminator=7a
+f002a402ad02
+.Pp
+SOURCE
+.D1 Pa ${MJO_HOME}/examples/validate.c
+.Sh SEE ALSO
+.Xr mjo_u8_validate_nth_sequence
+.Xr mjo_utf8_compose 3

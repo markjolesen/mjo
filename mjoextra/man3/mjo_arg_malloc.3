@@ -1,0 +1,111 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt marg
+.Sh NAME
+.Nm mjo_arg_free ,
+.Nm mjo_arg_malloc
+.Nd allocate or release a mjo_arg_t memory resource
+.Sh SYNOPSIS
+.In marg.h
+.Ft void
+.Fo mjo_arg_free
+.Fa "mjo_arg_t *const io_obj"
+.Fc
+.Ft void
+.Fo mjo_arg_malloc
+.Fa "mjo_arg_t *const o_obj"
+.Fa "enum mjo_arg_rule_mask const i_mask"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_arg_free 
+release a 
+.Vt mjo_arg_t
+memory resource.
+.Pp
+.Fn mjo_arg_malloc 
+allocate a 
+.Vt mjo_arg_t
+memory resource.
+.Pp
+Following is a description of the arguments.
+.Bl -tag  -width 5
+.It Fa o_obj 
+pointer to 
+.So mjo_arg_t * Sc
+that shall be set to the address of a newly created memory resource
+.It Fa io_obj 
+pointer to a
+.So mjo_arg_t * Sc
+that shall be an address of a previously allocated memory resource
+.It Fa i_mask
+rules that control the behavior of the parser
+.El
+.Pp
+.Bl -tag  -width 5
+.It Release Resource
+If both
+.Fa io_obj
+and
+.Fa *io_obj 
+is not nil,
+any internal resources held by the object will be released.
+Following,
+.Xr mjo_free 3 
+shall be invoked on
+.Fa io_obj .
+.It Allocate Resource
+.Xr mjo_malloc 3
+shall be invoked to create a 
+.Vt mjo_arg_t
+object followed by allocation of any internal resources.
+.El
+.Pp
+If
+.Fa io_obj
+is nil, it shall be denoted as an invalid argument.
+.Pp
+If
+.Fa i_block
+is nil,
+.Fa *io_obj
+shall be set to nil and it shall be denoted as an invalid argument.
+.Pp
+.Vt enum mjo_arg_rule_mask
+.Bl -column "Constant" "Description" -offset indent
+.It mjo_arg_rule_mask_on_error_keep_going Ta on error keep processing
+.It mjo_arg_rule_mask_on_error_suppress_message Ta do not print error diagnostics
+.El
+.Sh RETURN VALUES
+If any of the arguments are invalid, errno shall be set to
+.Er EINVAL .
+.Sh SEE ALSO
+.Xr mjo_malloc  3
+.Xr mjo_free 3

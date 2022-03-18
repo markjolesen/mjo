@@ -1,0 +1,147 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib
+.Sh NAME
+.Nm mjo_path_join
+.Nd join the segments of a file into a composed path
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft void
+.Fo mjo_path_join
+.Fa "unsigned char **const o_path"
+.Fa "unsigned char const * i_prefix"
+.Fa "unsigned char const * i_name"
+.Fa "unsigned char const * i_suffix"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_path_join
+shall join the segments
+.Fa i_prefix,
+.Fa i_name,
+and
+.Fa i_suffix
+into a composed path.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_path
+pointer to an
+.So unsigned char * Sc
+that shall be set to the address of a newly created memory
+resource
+.It Fa i_prefix
+prefix segment
+.It Fa i_name
+name segment
+.It Fa i_suffix
+suffix segment
+.El
+.Pp
+If 
+.Fa o_path
+is nil, mjo_abort shall be invoked with error code 
+.Er EINVAL .
+.Pp
+.Fa *o_path
+shall be set to the address of the newly created block of memory.
+The size shall be large enough to contain the segments along with
+any separators plus one for the termination octet.
+.Pp 
+If
+.Fa i_prefix,
+.Fa i_name,
+and
+.Fa i_suffix
+are all either nil or empty, two (2) octets shall be allocated.
+The first octet shall contain a period 
+.Po mjo_r7_period Pc
+and the second shall contain a termination octet.
+.Pp
+If 
+.Fa i_prefix 
+is not nil or empty, it shall be copied into
+.Fa *o_path
+followed by a directory separator 
+.Po mjo_r7_dirsep_str Pc .
+.Pp
+If
+.Fa i_name
+is not nil or empty, it shall be concatenated to the end of
+.Fa *o_path .
+.Pp
+If
+.Fa i_suffix
+is not nil or empty, a period 
+.Po mjo_r7_period Pc
+ shall be be concatenated to the end of
+.Fa *o_path 
+followed by
+.Fa i_suffix .
+.Sh NOTES
+When the block of memory is no longer required, 
+the caller shall invoke 
+.Xr mjo_free 3
+to release the resource.
+.Sh SEE ALSO
+.Xr mjo_malloc 3
+.Xr mjo_free 3
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <mstdio.h>
+#include <mstdlib.h>
+#include <munistd.h>
+
+int
+  main()
+{
+  unsigned char *path;
+  unsigned char *cwd;
+
+  cwd = (unsigned char *)getcwd(0, (size_t)-1);
+
+  mjo_path_join(&path, cwd, (unsigned char *)"foo", (unsigned char *)"txt");
+
+  printf("path=%s\n", (char *)path);
+
+  mjo_free((void **)&path);
+
+  return 0;
+}
+.Ed
+.Pp
+OUTPUT
+.Bd -literal -offset indent
+path=/usr/home/devel/kv3/lib/mjo/build/examples/foo.txt/
+.Ed
+.Pp
+SOURCE
+.Pp
+.D1 Pa ${MJO_HOME}/examples/pathjoin.c

@@ -1,0 +1,80 @@
+CC0 1.0 Universal --- Public Domain
+
+To the extent possible under law, Mark J. Olesen has waived all copyright
+and related or neighboring rights to this file (INSTALL). This work is
+published from: United States.
+
+Full text of this license can be found in '${MJO_HOME}/licenses/CC-CC0'
+or visit 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt' or
+send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+_______________________________________________________________________________
+
+SYNOPSIS
+
+  $ cd ${MJO_HOME}/make/gnu
+  $ aclocal
+  $ autoreconf -i
+  $ ./configure
+  $ make && make install
+
+BUILDING
+
+The files in this directory are for building mjo using GNU autotools.
+
+Dependencies
+
+  * C compiler
+  * Linker
+  * GNU Autotools
+  * make
+
+CONFIGURE SCRIPT
+
+mjo can often be built using the GNU AUTOTOOLS macros and scripts supplied 
+in the package. If this fails, it is might be necessary to rebuild
+the scripts (see section below GNU AUTOTOOLS).
+
+  $ cd ${MJO_HOME}/make/gnu
+  $ ./configure
+  $ make
+  $ make install
+
+GNU AUTOTOOLS
+
+To build mjo, change into the '${MJO_HOME}/make/gnu' directory.
+Afterwards, run the the following GNU autotools commands in the
+order listed:
+
+  $ cd ${MJO_HOME}/make/gnu
+  $ aclocal
+  $ autoreconf -i
+
+The next step is to configure. To accept the default settings,
+run the following command:
+
+  $ ./configure
+
+To list all the configuration options, run the following command:
+
+  $ ./configure --help
+
+For mjo library, the most common parameter to change is the installation
+path (prefix). For example, to configure the install to put files in a
+users home directory you would run the following command:
+
+  $ ./configure --prefix=/home/<username>/usr/local
+
+compile
+
+After following the steps described in section GNU AUTOTOOLS,
+a 'Makefile' shall be created. To compile mjo run the following
+command:
+
+  $ make
+
+install
+
+Once mjo has been compiled, it can be installed into the configured
+directory. To install mjo run the following command:
+
+  $ make install

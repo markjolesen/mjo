@@ -1,0 +1,84 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt mvector
+.Sh NAME
+.Nm mjo_vector_push
+.Nd Append a value to the end of the vector
+.Sh SYNOPSIS
+.In mvector.h
+.Ft void
+.Fo mjo_vector_push
+.Fa "mjo_vector_t *const io_var"
+.Fa "void const *i_obj"
+.Fa "size_t const i_count"
+.Fc
+.Sh DESCRIPTION
+Append a value to the end of the vector.
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa io_var
+pointer to an
+.So mjo_vector_t Sc
+to append values too
+.It Fa i_obj
+array of values to append
+.It Fa i_count
+number of elements in 
+.Fa i_obj
+.Pp
+If 
+.Fa io_var
+or
+.Fa *io_var 
+or
+.Fa i_obj
+is nil, it shall denote an invalid argument.
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and 
+.Va errno 
+shall be set to
+.Er EINVAL .
+.Pp
+If the vector is not resizeable or 
+.Fa i_count 
+or 
+.Fa 1 + i_count
+is zero,
+.Va errno
+shall be set to 
+.Er E2BIG 
+and the return code shall be
+.Er MJO_FAIL .
+.Pp
+Upon success, the return value shall be
+.Er MJO_OK .

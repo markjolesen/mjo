@@ -1,0 +1,205 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mr7.h 7
+.Sh NAME
+.Nm mr7.h
+.Nd ASCII constants and utility routines
+.Sh LIBRARY
+.Lb libmjo
+.Sh SYNOPSIS
+.In mr7.h
+.Pp
+.Sy
+enum mjo_r7 {
+.Dl Dv mjo_r7_nul
+.Dl Dv mjo_r7_soh
+.Dl Dv mjo_r7_stx
+.Dl Dv mjo_r7_etx
+.Dl Dv mjo_r7_eot
+.Dl Dv mjo_r7_enq
+.Dl Dv mjo_r7_ack
+.Dl Dv mjo_r7_bel
+.Dl Dv mjo_r7_bs
+.Dl Dv mjo_r7_ht
+.Dl Dv mjo_r7_lf
+.Dl Dv mjo_r7_vt
+.Dl Dv mjo_r7_ff
+.Dl Dv mjo_r7_cr
+.Dl Dv mjo_r7_so
+.Dl Dv mjo_r7_si
+.Dl Dv mjo_r7_dle
+.Dl Dv mjo_r7_dc1
+.Dl Dv mjo_r7_dc2
+.Dl Dv mjo_r7_dc3
+.Dl Dv mjo_r7_dc4
+.Dl Dv mjo_r7_nak
+.Dl Dv mjo_r7_syn
+.Dl Dv mjo_r7_etb
+.Dl Dv mjo_r7_can
+.Dl Dv mjo_r7_em
+.Dl Dv mjo_r7_sub
+.Dl Dv mjo_r7_esc
+.Dl Dv mjo_r7_fs
+.Dl Dv mjo_r7_gs
+.Dl Dv mjo_r7_rs
+.Dl Dv mjo_r7_us
+.Dl Dv mjo_r7_space
+.Dl Dv mjo_r7_exclamation
+.Dl Dv mjo_r7_quote
+.Dl Dv mjo_r7_hash
+.Dl Dv mjo_r7_dollar
+.Dl Dv mjo_r7_pct
+.Dl Dv mjo_r7_ampersand
+.Dl Dv mjo_r7_squote
+.Dl Dv mjo_r7_lparen
+.Dl Dv mjo_r7_rparen
+.Dl Dv mjo_r7_asterisk
+.Dl Dv mjo_r7_plus
+.Dl Dv mjo_r7_comma
+.Dl Dv mjo_r7_minus
+.Dl Dv mjo_r7_period
+.Dl Dv mjo_r7_slash
+.Dl Dv mjo_r7_0
+.Dl Dv mjo_r7_1
+.Dl Dv mjo_r7_2
+.Dl Dv mjo_r7_3
+.Dl Dv mjo_r7_4
+.Dl Dv mjo_r7_5
+.Dl Dv mjo_r7_6
+.Dl Dv mjo_r7_7
+.Dl Dv mjo_r7_8
+.Dl Dv mjo_r7_9
+.Dl Dv mjo_r7_colon
+.Dl Dv mjo_r7_semicolon
+.Dl Dv mjo_r7_lessthan
+.Dl Dv mjo_r7_equal
+.Dl Dv mjo_r7_greaterthan
+.Dl Dv mjo_r7_question
+.Dl Dv mjo_r7_at
+.Dl Dv mjo_r7_upr_a
+.Dl Dv mjo_r7_upr_b
+.Dl Dv mjo_r7_upr_c
+.Dl Dv mjo_r7_upr_d
+.Dl Dv mjo_r7_upr_e
+.Dl Dv mjo_r7_upr_f
+.Dl Dv mjo_r7_upr_g
+.Dl Dv mjo_r7_upr_h
+.Dl Dv mjo_r7_upr_i
+.Dl Dv mjo_r7_upr_j
+.Dl Dv mjo_r7_upr_k
+.Dl Dv mjo_r7_upr_l
+.Dl Dv mjo_r7_upr_m
+.Dl Dv mjo_r7_upr_n
+.Dl Dv mjo_r7_upr_o
+.Dl Dv mjo_r7_upr_p
+.Dl Dv mjo_r7_upr_q
+.Dl Dv mjo_r7_upr_r
+.Dl Dv mjo_r7_upr_s
+.Dl Dv mjo_r7_upr_t
+.Dl Dv mjo_r7_upr_u
+.Dl Dv mjo_r7_upr_v
+.Dl Dv mjo_r7_upr_w
+.Dl Dv mjo_r7_upr_x
+.Dl Dv mjo_r7_upr_y
+.Dl Dv mjo_r7_upr_z
+.Dl Dv mjo_r7_lbracket
+.Dl Dv mjo_r7_backslash
+.Dl Dv mjo_r7_rbracket
+.Dl Dv mjo_r7_caret
+.Dl Dv mjo_r7_underscore
+.Dl Dv mjo_r7ick
+.Dl Dv mjo_r7_lwr_a
+.Dl Dv mjo_r7_lwr_b
+.Dl Dv mjo_r7_lwr_c
+.Dl Dv mjo_r7_lwr_d
+.Dl Dv mjo_r7_lwr_e
+.Dl Dv mjo_r7_lwr_f
+.Dl Dv mjo_r7_lwr_g
+.Dl Dv mjo_r7_lwr_h
+.Dl Dv mjo_r7_lwr_i
+.Dl Dv mjo_r7_lwr_j
+.Dl Dv mjo_r7_lwr_k
+.Dl Dv mjo_r7_lwr_l
+.Dl Dv mjo_r7_lwr_m
+.Dl Dv mjo_r7_lwr_n
+.Dl Dv mjo_r7_lwr_o
+.Dl Dv mjo_r7_lwr_p
+.Dl Dv mjo_r7_lwr_q
+.Dl Dv mjo_r7_lwr_r
+.Dl Dv mjo_r7_lwr_s
+.Dl Dv mjo_r7_lwr_t
+.Dl Dv mjo_r7_lwr_u
+.Dl Dv mjo_r7_lwr_v
+.Dl Dv mjo_r7_lwr_w
+.Dl Dv mjo_r7_lwr_x
+.Dl Dv mjo_r7_lwr_y
+.Dl Dv mjo_r7_lwr_z
+.Dl Dv mjo_r7_lbrace
+.Dl Dv mjo_r7_pipe
+.Dl Dv mjo_r7_rbrace
+.Dl Dv mjo_r7_tilde
+.Dl Dv mjo_r7_del
+};
+.No
+.Pp
+.Fd #define mjo_r7_dirsep
+.Fd #define mjo_r7_dirsep_str
+.Pp
+.Fd #define mjo_r7_nil_str 
+.Fd #define mjo_r7_space_str 
+.Pp
+.Ft int
+.Fo mjo_r7_hash
+.Fa "size_t *const"
+.Fa "void *const"
+.Fa "size_t const"
+.Fa "unsigned char const"
+.Fc
+.Sh INCLUDES
+.Dl In stddef.h
+.Sh DESCRIPTION
+Provides symbolic constants for the ASCII character set (0x00-0x7F) and
+additional utility routines.
+.Pp
+Following are commonly used constants defined in the header
+.Pp
+.Bl -column "Constant" "Description" -offset indent
+.It mjo_r7_dirsep Ta directory separator constant (character form)
+.It mjo_r7_dirsep_str Ta directory separator constant (string  form) 
+.It mjo_r7_nil_str Ta nil constant (string form)
+.It mjo_r7_space_str Ta space constant (string form)
+.El
+.Pp
+.Pp
+.Dq mjo_r7_dirsep
+and
+.Dq mjo_r7_dirsep_str
+are platform specific. 

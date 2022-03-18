@@ -1,0 +1,237 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt marg
+.Sh NAME
+.Nm mjo_arg_parse
+.Nm mjo_arg_parse_block
+.Nm mjo_arg_parse_file
+.Nm mjo_arg_parse_vector
+.Nd parse commands
+.Sh SYNOPSIS
+.In marg.h
+.Ft int
+.Fo mjo_arg_parse
+.Fa "mjo_arg_t const io_arg"
+.Fa "mjo_istream_t const io_stream
+.Fc
+.Ft int
+.Fo mjo_arg_parse_block
+.Fa "mjo_arg_t const io_arg"
+.Fa "void const *i_block"
+.Fa "size_t const i_octets"
+.Fc
+.Ft in
+.Fo mjo_arg_parse_file
+.Fa "mjo_arg_t const io_arg"
+.Fa "unsigned char const *i_path"
+.Fc
+.Ft int
+.Fo mjo_arg_parse_vector
+.Fa "mjo_arg_t const io_arg"
+.Fa "unsigned char *const *const i_vector"
+.Fa "size_t const i_slots"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_arg_parse
+is the entry point to the primary parser engine, which shall
+parse options and their respective arguments, if any.
+.Pp
+.Fn mjo_arg_parse_block
+and
+.Fn mjo_arg_parse_block
+are convienance routines that shall create an
+.Vt mjo_istream_t
+data type and invoke
+.Fn mjo_arg_parse .
+.Pp
+.Fn mjo_arg_parse_vector
+takes arguments similiar in function to an applications
+.Fn main
+routine.
+.Bd -literal -offset indent
+  int main(int argc, char *argv[])
+  {
+     mjo_arg_t arg;
+
+     mjo_arg_malloc(&arg, mjo_arg_rule_mask_none);
+
+     mjo_arg_option(arg,
+       mjo_arg_option_mask_long,
+       (unsigned char const *)"help",
+       (unsigned char const *)"display program options",
+       0,
+       mjo_vector_variant_bool);
+
+     rc= mjo_arg_parse_vector(arg, argv, argc);
+     ...
+     mjo_arg_free(&arg);
+  }
+.Ed
+.Pp
+The vector will be flattened into a linear block of memory. 
+Following, 
+.Fn mjo_arg_parse_block 
+shall be invoked.
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa io_arg
+pointer to a
+.So mjo_arg_t Sc
+where the arguments of options shall be stored
+.It Fa io_stream
+input stream to read options from
+.It Fa i_block
+pointer to a fixed length block of memory 
+.It Fa i_octets
+number of octets in the block 
+.So i_block Sc
+.It Fa i_path
+path of file containing commands to parse
+.It Fa i_vector
+array of strings to parse 
+.Po argv Pc
+.It Fa i_slots
+number of elements in the array
+.Po argc Pc
+.El
+.Pp
+If 
+.Fa i_octets
+or
+.Fa i_slots
+is zero or
+.Fa io_arg
+or
+.Fa io_stream
+or
+.Fa i_block
+or
+.Fa i_path 
+or
+.Fa i_vector
+is nil, it shall be denoted as an invalid argument.
+.Pp
+If an include 
+.So @ Sc
+directive is encountered, the file shall be expanded to a
+full path and compared against previously included files. If it has
+already been parsed, it shall be ignored. Otherwise, it shall be
+opened and parsed.
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and 
+.Va errno 
+shall be set to
+.Er EINVAL .
+.Pp
+If an option is not found while parsing the commands list, MJO_FAIL shall be returned and 
+.Va errno 
+shall be set to 
+.Er ENOENT . 
+.Pp
+If the include directive is unable to open a file, 
+.Er MJO_FAIL 
+shall be returned and 
+.Vt errno 
+shall be set by
+.Xr open 3
+.Pp
+A maximum of 
+.Vt mjo_arg_include_depth_max
+include files shall be allowed. If the threshold is exceeded, the
+routine shall return 
+.Er MJO_FAIL 
+and set 
+.Va errno
+to
+.Er E2BIG .
+.Pp
+If the rule
+mjo_arg_rule_mask_on_error_suppress_message
+is set diagnostic information shall not be printed.
+.Pp
+If the  rule
+mjo_arg_rule_mask_on_error_keep_going 
+is set, regardless of error conditions, processing will 
+continue until the command list is consumed.
+.Pp
+Upon success, the return code shall be
+.Er MJO_OK .
+.Sh NOTES
+.Pp
+A dash 
+.Po So - Sc Pc
+is a single ASCII character 0x2d and an emdash is one dash
+followed by another. That is, it is a combination of two ASCII 0x2d
+characters.
+.Pp
+When a dash
+is specified by itself, it is treated and searched for in the table
+as any other option would be.
+.Pp
+When an emdash is specified by itself, it is treated as the end of
+all options and the start of the operand list. That is, everything 
+after the emdash is treated as an operand.
+.Pp
+Simplified BNF:
+.Pp
+.Bd -literal -offset indent
+option ::= <include> | <short> | <long> | <utf8> | <space> <option>
+include ::= '@' <filename> 
+filename ::= <utf8>
+short ::= <dash> <space> | <dash> <sopt> 
+long ::= <emdash> <space> | <emdash> <lopt> <arg> 
+dash :: = '-'
+emdash ::= '-' '-'
+arg ::= <empty> | <assignment> <utf8> 
+sopt ::= <alphanum> | <alphanum> <sopt>
+lopt ::= <alphanum> | <alphanum> <lopt> | <alphanum> <minus> <lopt>
+empty ::= 
+assignment ::= <space> | '='
+alphanum ::= "a-z" | "A-Z" | "0-9"
+minus ::= '-' | <minus>
+utf8 ::= UTF-8 text | <escape> 
+space ::= mjo_utf8_is_whitespace()
+escape ::= '\\' 'a' |
+	'\\' 'b' |
+	'\\' 'e' |
+	'\\' 'f' |
+	'\\' 'n' |
+	'\\' 'r' |
+	'\\' 't' |
+	'\\' 'u' |
+	'\\' <octal> 
+	'\\' 'x' <hex>
+octal ::= '0-9' | <octal>
+hex ::= '0-9' | 'a-f' | 'A-F' | <hex>
+.Ed

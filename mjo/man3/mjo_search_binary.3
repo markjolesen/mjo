@@ -1,0 +1,152 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib
+.Sh NAME
+.Nm mjo_search_binary
+.Nd Perform a binary search on an array that is sorted in ascending order
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft void
+.Fo mjo_search_binary
+.Fa "int *const o_found"
+.Fa "size_t * const o_slot"
+.Fa "void const * i_array"
+.Fa "size_t const i_object_size"
+.Fa "size_t const i_slots"
+.Fa "mjo_search_compare_t const i_compare"
+.Fa "void const *const i_object_to_find"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_search_binary 
+shall perform a binary search on an array
+.Po Fa i_array Pc
+that is sorted in ascending order looking for the object
+.Fa i_object_to_find .
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_found 
+pointer to an
+.So int Sc 
+.Po boolean Pc 
+that shall be set to indicate whether or not the object was found
+.It Fa o_slot 
+pointer to a
+.So size_t Sc
+that shall be set to the index of where the object was found or
+where it can be inserted
+.It Fa i_array 
+array of objects to search
+.It Fa i_object_size 
+size of an object
+.It Fa i_slots 
+count of objects in the array
+.It Fa i_compare 
+compare routine
+.It Fa i_object_to_find 
+object to find in the array
+.Fc
+.El
+.Pp
+If
+.Fa o_found
+is nil, it shall not be set.
+.Pp
+If
+.Fa o_slot
+is nil, it shall not be set.
+.Pp
+If
+.Fa i_array
+or the function pointer
+.Fa i_compare
+is nil or if
+.Fa i_object_size 
+or
+.Fa i_slots
+is zero, 
+.Fa *o_found
+shall be set to false and
+.Fa *o_slot
+shall be set to zero.
+.Pp
+If the object 
+.Fa i_obj_to_find
+is found in the array,
+.Fa *o_found
+shall be set to true and
+.Fa *o_slot
+shall be set to the index position of the object.  
+.Pp
+If the object is not found in the array,
+.Fa *o_found
+shall be set to false and
+.Fa *o_slot
+shall be set to the insertion point.
+.Sh  NOTES
+.Pp
+.Fa i_array
+must have no less than
+.Fa i_slots
+elements.
+.Pp
+.Fa i_array 
+elements shall be homogeneous. Objects shall have an exact data structure
+layout and must be
+.Fa i_object_size
+octets in length.
+.Pp
+The function pointer
+.Fa i_compare 
+shall compare two objects and return a comparison status indicator 
+of whether the first object is equal to, less than or greater than 
+the second object. 
+.Pp
+If the first object 
+.Po object to compare Pc
+is equal to the second object
+.Po Fa i_object_to_find Pc , 
+.Fa i_compare
+shall return zero. 
+.Pp
+If the first object 
+.Po object to compare Pc 
+is less than the second object
+.Po Fa i_object_to_find Pc , 
+.Fa i_compare
+shall return a negative number. 
+.Pp
+If the first object 
+.Po object to compare Pc 
+is greater then the second object
+.Po Fa i_object_to_find Pc , 
+.Fa i_compare
+shall return a positive number.

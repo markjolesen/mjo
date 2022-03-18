@@ -1,0 +1,190 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib
+.Sh NAME
+.Nm mjo_calloc ,
+.Nm mjo_free ,
+.Nm mjo_malloc ,
+.Nm mjo_realloc
+.Nd allocate, resize or release a memory resource
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft void 
+.Fo mjo_calloc 
+.Fa "void **const o_obj"
+.Fa "size_t const i_obj_count"
+.Fa "size_t const i_obj_size"
+.Fc
+.Ft void
+.Fo mjo_free
+.Fa "void **const io_obj"
+.Fc
+.Ft void
+.Fo mjo_malloc
+.Fa "void **const o_obj"
+.Fa "size_t const i_obj_count"
+.Fa "size_t const i_obj_size"
+.Fc
+.Ft void
+.Fo mjo_realloc
+.Fa "void **const io_obj"
+.Fa "size_t const i_obj_count"
+.Fa "size_t const i_obj_size"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_calloc
+is a macro, which calls
+.Fn mjo_mem_calloc
+to allocate a zero filled memory resource.
+.Pp
+.Fn mjo_malloc
+is a macro, which calls
+.Fn mjo_mem_malloc
+to allocate an uninitialized memory resource.
+.Pp
+.Fn mjo_realloc
+is a macro, which calls
+.Fn mjo_mem_realloc 
+to change the size of a memory resource.
+.Pp
+.Fn mjo_free
+is a macro, which calls
+.Fn mjo_mem_free
+to release a memory resource.
+.Pp
+Following is a description of the arguments.
+.Bl -tag  -width 5
+.It Fa o_obj 
+pointer to 
+.So void * Sc
+that shall be set to the address of a newly created memory resource
+.It Fa i_obj_count 
+count of objects to allocate
+.It Fa i_obj_size 
+size of an object
+.It Fa io_obj 
+pointer to a
+.So void * Sc
+that shall be an address of a previously allocated memory resource
+.El
+.Pp
+.Bl -tag  -width 5
+.It Release Resource
+If both
+.Fa io_obj
+and
+.Fa *io_obj 
+is not nil,
+.Xr free 3 
+shall be invoked on the resource
+.Fa *io_obj
+and
+*io_obj
+shall be set to nil.
+.It Allocate Resource
+The memory allocation routines shall allocate a block of 
+memory from the heap using standard library calls 
+.Po 
+.Xr malloc 3 ,
+.Xr calloc 3 ,
+and
+.Xr realloc 3
+.Pc .
+The length
+.Po in octets Pc
+that shall be allocated is the product of multiplying the multiplicand
+.Fa i_object_count
+by the multiplier
+.Fa i_object_size
+.Po Fa i_object_count No * Fa i_object_size Pc .
+.Pp
+If
+.Fa o_obj
+is nil,
+.Fa mjo_abort
+shall be invoked with error code EINVAL.
+.Pp
+If an overflow occurs as a result of the multiplication operation 
+.Fn mjo_abort
+shall be invoked with error code E2BIG.
+.Pp
+If the system allocation routine fails,
+.Fn mjo_abort
+shall be invoked with error code 
+.Er errno .
+.Bl -tag  -width 5
+.It mjo_malloc and mjo_calloc
+If the product is zero, 
+a one (1) octet block of memory shall be allocated.
+.It mjo_realloc
+If the product is zero, mjo_free shall be invoked 
+to release the memory resource
+.Po Fa *o_obj Pc
+.Pp
+If
+.Fa *o_obj
+is nil,
+.Fn mjo_malloc
+shall be invoked to allocate the memory resource.
+.Pp
+If
+.Fa *o_obj
+is not nil,
+.Xr realloc 3
+shall be invoked to resize the memory resource.
+.El
+.El
+.Sh NOTES
+.Pp
+Both
+.Fn mjo_malloc
+and
+.Fn mjo_calloc
+do not check if
+.Fa *o_obj
+is a valid memory resource. That is, it is the callers responsibility
+to track and release a valid resource.
+.Pp
+.Fn mjo_realloc 
+expects
+.Fa *o_obj
+to be zero or a valid previously allocated block of memory. Following the call
+to .Fn realloc
+the address may change in which, the previous address will be released.
+See
+.Xr realloc 3 ,
+for further details.
+.Fn mjo_mem_free .
+.Sh SEE ALSO
+.Xr calloc 3 ,
+.Xr free 3 ,
+.Xr malloc 3 ,
+.Xr realloc 3

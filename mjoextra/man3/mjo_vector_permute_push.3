@@ -1,0 +1,199 @@
+.\"  Copyright (c) 2021 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjoextra library
+.\"
+.Dd November 25, 2021
+.Os
+.Dt mvector
+.Sh NAME
+.Nm mjo_vector_permute_push
+.Nd Permute a string and append the result to the end of the vector
+.Sh SYNOPSIS
+.In mvector.h
+.Ft void
+.Fo mjo_vector_permute_push
+.Fa "mjo_vector_t *const io_var"
+.Fa "unsigned char const *i_str"
+.Fc
+.Sh DESCRIPTION
+Transform 
+.Po permute Pc
+a string to a vector's internal representation
+.Po data type Pc
+and then append it.
+.Pp
+.Bl -column "Constant" "Description" -offset indent
+.It mjo_vector_variant_struct 
+.Ta resize the vector by object size octets 
+.Po Vt i_size_struct 
+argument of 
+.Fn mjo_vector_malloc 
+.Pc
+and then append
+.Vt i_size_struct 
+octets of 
+.Fa i_str
+to the end of the vector.
+.It mjo_vector_variant_ptrstr
+.Ta resize the vector by the size of an address/pointer
+.Po ptrdiff_t Pc
+and then copy the address of a newly duplicated string
+.Fa i_str 
+onto the end of the vector.
+.It  mjo_vector_variant_char
+.Ta resize the vector by 
+.Xr strlen 3
+of 
+.Fa i_str
+and then copy the octets of
+.Fa i_str
+onto the end of the vector.
+.It mjo_vector_variant_short 
+.Ta resize the vector by the size of a short
+and then convert 
+.Po Fn mjo_str_to_short Pc
+the ASCII numeric value to a short and store the value 
+at the end of the vector.
+.It mjo_vector_variant_ushort 
+.Ta resize the vector by the size of an unsigned short
+and then convert 
+.Po Fn mjo_str_to_ushort Pc
+the ASCII numeric value to a unsigned short and store the value 
+at the end of the vector.
+.It mjo_vector_variant_bool 
+.Ta resize the vector by the size of an int
+and then convert 
+.Po Fn mjo_str_to_bool Pc
+the ASCII numeric value to a boolean and store the value 
+at the end of the vector.
+.Pp
+A boolean value of true can be one of the following conditions:
+.Bl -type dash
+.It 
+.Fa i_str is nill
+.It 
+.Fa i_str is empty
+.It 
+.Fa *i_str is equal to '1'
+.It 
+.Fa *i_str is equal to 't'
+.It 
+.Fa *i_str is equal to 'T'
+.El
+.It  mjo_vector_variant_int
+.Ta resize the vector by the size of an int
+and then convert 
+.Po Fn mjo_str_to_int Pc
+the ASCII numeric value to an int and store the value 
+at the end of the vector.
+.It  mjo_vector_variant_uint
+.Ta resize the vector by the size of an unsigned int 
+and then convert 
+.Po Fn mjo_str_to_uint Pc
+the ASCII numeric value to an unsigned int 
+and store the value at the end of the vector.
+.It  mjo_vector_variant_long
+.Ta resize the vector by the size of a long
+and then convert 
+.Po Fn mjo_str_to_long Pc
+the ASCII numeric value to a long and store the value
+at the end of the vector.
+.It  mjo_vector_variant_ulong
+.Ta resize the vector by the size of an unsigned long
+and then convert 
+.Po Fn mjo_str_to_ulong Pc
+the ASCII numeric value to a unsigned long and store the value 
+at the end of the vector.
+.It  mjo_vector_variant_size_t
+.Ta resize the vector by the size of a size_t
+and then convert 
+.Po Fn mjo_str_to_size_t Pc
+the ASCII numeric value to a size_t and store the value
+at the end of the vector.
+.It  mjo_vector_variant_ptrdiff_t
+.Ta resize the vector by the size of a ptrdiff_t
+and then convert 
+.Po Fn mjo_str_to_ptrdiff_t Pc
+the ASCII numeric value to ptrdiff_t and store the value 
+at the end of the vector.
+.It  mjo_vector_variant_double
+.Ta resize the vector by the size of a double 
+and then convert
+.Po Fn mjo_str_to_pa double Pc
+ the ASCII numeric value to a double and store the value
+at the end of the vector.
+.El
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa io_var
+pointer to a
+.So mjo_vector_t Sc
+to add an object too
+.It Fa i_str 
+a value in ASCII representation to permute and append to the vector
+.El
+.Pp
+If 
+.Fa io_var
+or
+.Fa i_str
+is nil, 
+or 
+.Fa *i_str
+is empty, it shall be denoted as an invalid argument.
+.Pp
+The number of elements in the vector will increase by one.
+.Sh RETURN VALUES
+If any of the arguments are invalid, the return code shall be
+.Er MJO_FAIL
+and 
+.Va errno 
+shall be set to
+.Er EINVAL .
+.Pp
+If the internal size 
+.Po Vt i_size_struct 
+argument of 
+.Fn mjo_vector_malloc 
+.Pc
+is zero, 
+.Va errno
+shall be set to 
+.Er E2BIG 
+and return code shall be 
+.Er MJO_FAIL .
+.Pp
+If the conversion fails, 
+.Va errno 
+shall be set 
+.Er ERANGE 
+to denote
+a conversion issue and the return code shall be
+.Er MJO_FAIL .
+Upon success, the return value shall be 
+.Er MJO_OK .

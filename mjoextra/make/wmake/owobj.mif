@@ -1,0 +1,72 @@
+# CC0 1.0 Universal --- Public Domain
+#
+# To the extent possible under law, Mark J. Olesen has waived all copyright
+# and related or neighboring rights to this file (owobj.mif). 
+# This work is published from: United States.
+#
+# This file is part of the mjoextra libraray.
+#
+# Full text of this license can be found in '${MJO_HOME}/licenses/CC-CC0'
+# or visit 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt' or
+# send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+#
+
+
+LIB_OBJS= &
+	$(OBJ)\acquiesc.$(SFX) &
+	$(OBJ)\free.$(SFX) &
+	$(OBJ)\lexfree.$(SFX) &
+	$(OBJ)\lexnew.$(SFX) &
+	$(OBJ)\lexpush.$(SFX) &
+	$(OBJ)\lexread.$(SFX) &
+	$(OBJ)\_lookup.$(SFX) &
+	$(OBJ)\_missing.$(SFX) &
+	$(OBJ)\new.$(SFX) &
+	$(OBJ)\option.$(SFX) &
+	$(OBJ)\_optval.$(SFX) &
+	$(OBJ)\parblock.$(SFX) &
+	$(OBJ)\parfile.$(SFX) &
+	$(OBJ)\_parincl.$(SFX) &
+	$(OBJ)\_parlong.$(SFX) &
+	$(OBJ)\_parop.$(SFX) &
+	$(OBJ)\parse.$(SFX) &
+	$(OBJ)\_parshrt.$(SFX) &
+	$(OBJ)\parvec.$(SFX) &
+	$(OBJ)\print.$(SFX) &
+	$(OBJ)\_push.$(SFX) &
+	$(OBJ)\rdarg.$(SFX) &
+	$(OBJ)\rdcsv.$(SFX) &
+	$(OBJ)\_rdesc.$(SFX) &
+	$(OBJ)\rdincl.$(SFX) &
+	$(OBJ)\rdline.$(SFX) &
+	$(OBJ)\rdlong.$(SFX) &
+	$(OBJ)\rdop.$(SFX) &
+	$(OBJ)\_rd.$(SFX) &
+	$(OBJ)\rdshort.$(SFX) &
+	$(OBJ)\_rdstm.$(SFX) &
+	$(OBJ)\sblknew.$(SFX) &
+	$(OBJ)\scansep.$(SFX) &
+	$(OBJ)\scansp.$(SFX) &
+	$(OBJ)\sfilenew.$(SFX) &
+	$(OBJ)\sfree.$(SFX) &
+	$(OBJ)\spush.$(SFX) &
+	$(OBJ)\sread.$(SFX) &
+	$(OBJ)\str.$(SFX) &
+	$(OBJ)\tointern.$(SFX) &
+	$(OBJ)\tostr.$(SFX) &
+	$(OBJ)\value.$(SFX) &
+	$(OBJ)\vclear.$(SFX) &
+	$(OBJ)\vcount.$(SFX) &
+	$(OBJ)\vdequeue.$(SFX) &
+	$(OBJ)\vecnew.$(SFX) &
+	$(OBJ)\vfree.$(SFX) &
+	$(OBJ)\vgrow.$(SFX) &
+	$(OBJ)\vnew.$(SFX) &
+	$(OBJ)\vperpush.$(SFX) &
+	$(OBJ)\vpop.$(SFX) &
+	$(OBJ)\vpush.$(SFX) &
+	$(OBJ)\vshiftl.$(SFX) &
+	$(OBJ)\vshiftr.$(SFX) &
+	$(OBJ)\vtag.$(SFX) &
+	$(OBJ)\vtype.$(SFX) &
+	$(OBJ)\vvarfree.$(SFX)

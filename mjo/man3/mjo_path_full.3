@@ -1,0 +1,152 @@
+.\"  Copyright (c) 2020 Mark J. Olesen
+.\"
+.\"  CC BY 4.0
+.\"
+.\"  This file is licensed under the Creative Commons Attribution 4.0 
+.\"  International license.
+.\"
+.\"  You are free to:
+.\"
+.\"    Share --- copy and redistribute the material in any medium or format
+.\" 
+.\"    Adapt --- remix, transform, and build upon the material for any purpose,
+.\"              even commercially
+.\"
+.\"  Under the following terms:
+.\"
+.\"    Attribution --- You must give appropriate credit, provide a link
+.\"                    to the license, and indicate if changes were made. You
+.\"                    may do so in any reasonable manner, but not in any way
+.\"                    that suggests the licensor endorses you or your use.
+.\"
+.\"   Full text of this license can be found in 
+.\"   '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit 
+.\"   'http://creativecommons.org/licenses/by/4.0/' or send a letter 
+.\"   to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+.\"
+.\"  This file is part of mjo library
+.\"
+.Dd July 22, 2020
+.Os
+.Dt mstdlib
+.Sh NAME
+.Nm mjo_path_full
+.Nd resolve a path into a fully qualified system path
+.Sh SYNOPSIS
+.In mstdlib.h
+.Ft void
+.Fo mjo_path_full
+.Fa "unsigned char **const o_path"
+.Fa "unsigned char const * i_path"
+.Fc
+.Sh DESCRIPTION
+.Fn mjo_path_full
+shall attempt to resolve 
+.Fa i_path 
+to a fully qualified system path
+.Pp
+Following is a description of the arguments.
+.Bl -tag -width 5
+.It Fa o_path
+pointer to an
+.So unsigned char * Sc
+that shall be set to the address of a newly created memory
+resource
+.It Fa i_path
+path to resolve
+.El
+.Pp
+If 
+.Fa o_path
+is nil, errno shall be set to 
+.Er EINVAL 
+and the return code shall be 
+.Er MJO_FAIL .
+.Pp
+If
+.Fa i_path 
+is nil or empty, 
+.Fa *o_path
+shall be set to the return code of
+.Xr getcwd 3 .
+.Pp
+If
+.Fa i_path
+is neither nil or empty,
+.Fa *o_path
+shall be set to the return code of a platform
+specific call such as
+.Xr realpath 3
+or
+.Xr _fullpath .
+.Sh NOTES
+.Pp
+Upon failure the return code shall be
+.Er MJO_FAIL
+and
+.Fa *o_path
+shall be nil and
+.Er errno
+shall be set by the specific platform dependent call that was made.
+.Pp
+Upon success the return code shall be
+.Er MJO_OK
+and
+.Fa *o_path
+shall be set to the resolved path and
+.Er errno
+will be unchanged.
+.Pp
+When the block of memory 
+is no longer required, 
+the caller shall invoke 
+.Xr mjo_free 3
+to release the resource.
+.Sh SEE ALSO
+.Xr getcwd 3
+.Xr realpath 3 / _fullpath 3
+.Xr mjo_free 3
+.Sh CAVEAT
+If the file name part of i_path does not exist, the routine fails.
+Even if the directory part is on the file system.
+.Sh EXAMPLES
+.Bd -literal -offset indent
+#include <errno.h>
+#include <string.h>
+/**/
+#include <mstdio.h>
+#include <mstdlib.h>
+
+int
+  main(int argc, char **argv)
+{
+  unsigned char *path;
+  char *path_prog;
+
+  printf("before=%s\n", argv[0]);
+
+  mjo_path_full(&path, (unsigned char const *)argv[0]);
+
+  if (path)
+    {
+      printf("after=%s\n", (char *)path);
+      mjo_free((void **)&path);
+    }
+  else
+    {
+      printf("failed: errrno(%d)=%s\n", errno, strerror(errno));
+    }
+
+  return 0;
+}
+.Ed
+.Pp
+OUTPUT
+.Bd -literal -offset indent
+before=./pathfull
+after=/usr/home/devel/kv3/lib/mjo/build/examples/pathfull
+.Ed
+.Pp
+SOURCE
+.Pp
+.D1 Pa ${MJO_HOME}/examples/pathfull.c

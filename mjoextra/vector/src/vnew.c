@@ -34,10 +34,6 @@ extern void
   size_t l_size;
 
   l_rc = MJO_OK;
-  l_octets = ((sizeof(double) > sizeof(ptrdiff_t)) ? sizeof(double)
-                                                   : sizeof(ptrdiff_t));
-  l_size = 0;
-
   do
     {
       switch (i_variant)
@@ -71,6 +67,12 @@ extern void
         case mjo_vector_variant_double:
           l_size = sizeof(double);
           break;
+        default:
+          l_size = 0;
+          l_octets = ((sizeof(double) > sizeof(ptrdiff_t))
+                        ? sizeof(double)
+                        : sizeof(ptrdiff_t));
+          break;
         }
 
       if (l_size)
@@ -100,9 +102,12 @@ extern void
       mjo_mem_calloc((void **const) & l_arena, l_octets, 1, i_fn, i_ln);
 
       l_arena->m_variant = i_variant;
-      l_arena->m_allocated = (1 + i_count);
-      l_arena->m_size = l_size;
-      l_arena->m_count = 0;
+
+      if (l_size)
+        {
+          l_arena->m_allocated = i_count;
+          l_arena->m_size = l_size;
+        }
 
       if (i_discharge)
         {

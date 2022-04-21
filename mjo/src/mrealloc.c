@@ -37,6 +37,7 @@ extern void
       if (0 == *io_obj)
         {
           mjo_mem_malloc(io_obj, i_obj_count, i_obj_size, i_fn, i_ln);
+          break;
         }
 
       l_rc = mjo_mul_size_t(&l_product, i_obj_count, i_obj_size);

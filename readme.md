@@ -7,6 +7,7 @@ Portability headers and functions for various compilers targeted at
 specific Operating Systems.
 
 | header | description |
+| --------- | --------------------------------------------------------------- |
 | mdirect.h | open and read directories |
 | mfcntl.h | O_BINARY |
 | mr7.h | ASCII character set (0x00-0x7F) constants, hash and trim routines |
@@ -69,6 +70,7 @@ not all platforms are POSIX compatible.
 Utility routines, which simplify an abstract and cohesive interface to common tasks.
 
 | header | description |
+| --------- | --------------------------------------------------------------- |
 | mread.h | high level read operations on a input stream |
 | marg.h | argument parser |
 | mistream | high level abstract input reader |

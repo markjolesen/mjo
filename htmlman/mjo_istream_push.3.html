@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2021 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjoextra library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mistream</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mistream</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mistream</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_istream_push</code> &#x2014;
+    <span class="Nd">push back an UTF-8 character onto an input
+  stream</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mistream.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_istream_push</code>(<var class="Fa">mjo_istream_t const
+    io_stream</var>, <var class="Fa">struct mjo_utf8 const *const
+  i_peek</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_istream_push"><code class="Fn" id="mjo_istream_push">mjo_istream_push</code></a>()
+    is like <a class="Xr" href="ungetc.3.html">ungetc(3)</a> in functionality.
+    It provides a method to allow the caller to push back an UTF-8 character to
+    the input stream <var class="Fa">io_stream</var>. When the next read is
+    performed, if any UTF-8 characters exists in the push back queue (LIFO), the
+    last one will be popped and returned.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_stream</var></dt>
+  <dd>pointer to a &#x2018;mjo_istream_t&#x2019; that shall place the character
+      onto it's queue</dd>
+  <dt><var class="Fa">i_peek</var></dt>
+  <dd>UTF-8 character to push back</dd>
+</dl>
+<p class="Pp">If <var class="Fa">o_stream</var> or <var class="Fa">i_peek</var>
+    is nil, no operations will be performed.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 25, 2021</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

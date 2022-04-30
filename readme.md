@@ -1,5 +1,21 @@
+# License
+
+CC0 1.0 Universal --- Public Domain
+
+To the extent possible under law, Mark J. Olesen has waived all copyright
+and related or neighboring rights to this file (readme.md). 
+This work is published from: United States.
+
+This file is part of the mjo library.
+
+Full text of this license can be found in '${MJO_HOME}/licenses/CC-CC0'
+or visit 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt' or
+send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
 This document is a synopsis of the mjo library. For specific
 information about a function please consult the man pages.
+
+___
 
 # mjo Library
 
@@ -8,22 +24,25 @@ specific Operating Systems.
 
 | header | description |
 | --------- | --------------------------------------------------------------- |
-| mdirect.h | open and read directories |
-| mfcntl.h | O_BINARY |
-| mr7.h | ASCII character set (0x00-0x7F) constants, hash and trim routines |
-| mstddef.h | ssize_t |
-| mstdio.h | io constants and abstract input routines |
-| mstdlib.h | extended standard library routines |
+| [mdirect.h](htmlman/mdirect.h.7.html) | open and read directories |
+| [mfcntl.h](htmlman/mfnctl.h.7.html) | O_BINARY |
+| [mr7.h](htmlman/mr7.h.7.html) | ASCII character set (0x00-0x7F) constants, hash and trim routines |
+| [mstddef.h](htmlman/mstddef.h.7.html) | ssize_t |
+| [mstdio.h](htmlman/mstdio.h.7.html) | io constants and abstract input routines |
+| [mstdlib.h](htmlman/mstdlib.h.7.html) | extended standard library routines |
 | mstring.h | explicit_bzero() |
-| msysstat.h | file status flags along with stat() and fstat() routines |
-| mu8.h | UTF-8 calculation and validation routines, trim routines |
-| munistd.h | if available include unistd.h |
-| mutf8.h | UTF-8 data structure and routines |
-| mxywh.h | rectangle data structure |
+| [msysstat.h](htmlman/msysstat.h.7.html) | file status flags along with stat() and fstat() routines |
+| [mu8.h](htmlman/mu8.h.7.html) | UTF-8 calculation and validation routines, trim routines |
+| [munistd.h](htmlman/munistd.h.7.html) | if available include unistd.h |
+| [mutf8.h](htmlman/mutf8.h.7.html) | UTF-8 data structure and routines |
+| [mxywh.h](htmlman/mxywh.h.7.html) | rectangle data structure |
 
 This is not meant to be a replacement for cygwin. It is minimalist
 and does the job for applications written with ANSI-C in mind. Note,
-not all platforms are POSIX compatible.
+not all platforms are POSIX compatible. Thus, this library attempts
+to fill in the gaps without bloat.
+
+HTML man pages for the following routinees can be found [here](htmlman/index.html)
 
 ## mdirect.h
 - struct dirent
@@ -65,7 +84,7 @@ not all platforms are POSIX compatible.
 - mjo_utf8_is_whitespace()
 - mjo_utf8_strchr()
 
-# mjoextra
+# mjoextra library
 
 Utility routines, which simplify an abstract and cohesive interface to common tasks.
 

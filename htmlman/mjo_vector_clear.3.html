@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2021 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjoextra library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mvector</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mvector</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mvector</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_vector_clear</code> &#x2014;
+    <span class="Nd">remove all elements from a vector</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mvector.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_vector_clear</code>(<var class="Fa">mjo_vector_t const
+    io_var</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Iterate through all of the elements of a vector calling the
+    discharge method on the object, if any.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_var</var></dt>
+  <dd>pointer to a &#x2018;mjo_vector_t&#x2019; to clear</dd>
+</dl>
+<p class="Pp">If <var class="Fa">io_var</var> is nil, the routine shall perform
+    nothing.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">The block of memory held by the vector will not be released. That
+    is, the vector will always grow in size but never shrink. If this is not the
+    desired effect, call
+    <a class="permalink" href="#mjo_vector_free"><code class="Fn" id="mjo_vector_free">mjo_vector_free</code></a>()
+    followed by
+    <a class="permalink" href="#mjo_vector_malloc"><code class="Fn" id="mjo_vector_malloc">mjo_vector_malloc</code></a>().</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 25, 2021</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

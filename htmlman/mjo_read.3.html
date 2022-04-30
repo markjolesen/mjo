@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mstdlib</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mstdlib</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mstdlib</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_read</code> &#x2014; <span class="Nd">read
+    data from an abstract stream</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mstdlib.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_read</code>(<var class="Fa">enum mjo_status *const
+    o_status</var>, <var class="Fa">size_t * const o_octets</var>,
+    <var class="Fa">void * o_block</var>, <var class="Fa">size_t const
+    i_count</var>, <var class="Fa">mjo_read_t const i_read</var>,
+    <var class="Fa">mjo_handle_t io_handle</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Read <var class="Fa">i_count</var> octets into
+    <var class="Fa">o_block</var> using the function pointer
+    <var class="Fa">i_read</var> to read data from the stream
+    <var class="Fa">io_handle</var>.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_status</var></dt>
+  <dd>pointer to an &#x2018;enum mjo_status&#x2019; that shall be set to one of
+      the following four (4) indicators: (1)
+      <code class="Er">mjo_status_ok</code>, (2)
+      <code class="Er">mjo_status_invalid</code>, (3)
+      <code class="Er">mjo_status_eof</code>, or (4)
+      <code class="Er">mjo_status_truncated</code></dd>
+  <dt><var class="Fa">o_octets</var></dt>
+  <dd>pointer to a &#x2018;size_t&#x2019; that shall be set to the count of
+      octets read</dd>
+  <dt><var class="Fa">o_block</var></dt>
+  <dd>block of memory that shall store input</dd>
+  <dt><var class="Fa">i_count</var></dt>
+  <dd>count of octets to read from a stream</dd>
+  <dt><var class="Fa">i_read</var></dt>
+  <dd>an opaque input function</dd>
+  <dt><var class="Fa">io_handle</var></dt>
+  <dd>an opaque stream handle</dd>
+</dl>
+<p class="Pp">If <var class="Fa">o_status</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">o_octets</var> is nil, it shall not be set.</p>
+<p class="Pp">If either <var class="Fa">o_block</var> or
+    <var class="Fa">i_read</var> is nil <var class="Fa">*o_status</var> shall be
+    set to <code class="Er">mjo_status_invalid</code> and
+    <code class="Er">errno</code> shall be set to
+    <code class="Er">EINVAL</code>.</p>
+<p class="Pp">If <var class="Fa">i_count</var> is zero,
+    <var class="Fa">*o_status</var> shall be set to
+    <code class="Er">mjo_status_eof</code>.</p>
+<p class="Pp">If the number of octets read from the stream is equal to
+    <var class="Fa">i_count</var> <var class="Fa">*o_status</var> shall be set
+    to <code class="Er">mjo_status_ok</code>.</p>
+<p class="Pp">If the number of octets read from the stream is greater than zero
+    but less than <var class="Fa">i_count</var>, <var class="Fa">*o_status</var>
+    shall be set to <code class="Er">mjo_status_truncated</code>.</p>
+<p class="Pp">If the number of octets read from the stream is zero,
+    <var class="Fa">*o_status</var> shall be set to
+    <code class="Er">mjo_status_eof</code>.</p>
+<p class="Pp"><var class="Fa">*o_octets</var> shall be set to the count of
+    octets that have been stored in <var class="Fa">o_block</var>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">RETURN
+  VALUES</a></h1>
+<p class="Pp">If any of the arguments are invalid, the return code shall be
+    <code class="Er">MJO_FAIL</code> and errno shall be set to
+    <code class="Er">EINVAL</code>.</p>
+<p class="Pp">Upon success, the return code shall be
+    <code class="Er">MJO_OK</code>. Otherwise, the return code shall be
+    <code class="Er">MJO_FAIL</code> and errno shall be modified by the call
+    made to <var class="Fa">i_read</var>.</p>
+<p class="Pp">If the return code is <code class="Er">MJO_OK</code>,
+    <code class="Er">errno</code> shall be unchanged and
+    <var class="Fa">*o_status</var> shall be
+    <code class="Er">mjo_status_ok</code> or
+    <code class="Er">mjo_status_truncated</code>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">For non-blocking streams, calling this routine may not have the
+    desired affect.</p>
+<p class="Pp">After reading from the stream and an error condition or the
+    accumulated number of octets read is less than <var class="Fa">i_count</var>
+    and errno is equal to <code class="Er">EINTR</code> or
+    <code class="Er">EAGAIN</code> (<code class="Er">EWOULDBLOCK</code>) the
+    routine shall continue to read from the stream until one of the following
+    conditions is met:</p>
+<ul class="Bl-item">
+  <li>an error other than <code class="Er">EINTR</code> or
+      <code class="Er">EGAIN</code> occurs</li>
+  <li>the end of file is reached</li>
+  <li>the accumulated number of octets read is equal to
+      <var class="Fa">i_count</var>.</li>
+</ul>
+<p class="Pp"><var class="Fa">o_block</var> must be large enough to store
+    <var class="Fa">i_count</var> octets.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="open.2.html">open(2)</a>,
+    <a class="Xr" href="read.2.html">read(2)</a>,
+    <a class="Xr" href="errno.3.html">errno(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

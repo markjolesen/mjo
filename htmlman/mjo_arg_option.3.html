@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2021 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjoextra library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>marg</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">marg</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">marg</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_arg_option</code> &#x2014;
+    <span class="Nd">insert an option into a mjo_arg_t container</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">marg.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_arg_option</code>(<var class="Fa">mjo_arg_t const
+    io_arg</var>, <var class="Fa">enum mjo_arg_option_mask const
+    i_option_mask</var>, <var class="Fa">unsigned char const *
+    i_attribute</var>, <var class="Fa">unsigned char const *
+    i_description</var>, <var class="Fa">enum mjo_arg_argument_mask const
+    i_argument_mask</var>, <var class="Fa">enum mjo_vector_variant const
+    i_variant</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Insert an option into a <var class="Vt">mjo_arg_t</var>
+  container.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_arg</var></dt>
+  <dd>pointer to a &#x2018;mjo_arg_t&#x2019; to insert the option into</dd>
+  <dt><var class="Fa">i_option_mask</var></dt>
+  <dd>rules that define the option</dd>
+  <dt><var class="Fa">i_attribute</var></dt>
+  <dd>the name of the option</dd>
+  <dt><var class="Fa">i_description</var></dt>
+  <dd>short description explaining what the option is about</dd>
+  <dt><var class="Fa">i_argument_mask</var></dt>
+  <dd>rules that describe the argument's attributes</dd>
+  <dt><var class="Fa">i_variant</var></dt>
+  <dd>data type of the option</dd>
+</dl>
+<p class="Pp">If <var class="Fa">io_arg</var> is nil or
+    <var class="Fa">i_attribute</var> is empty or nil it shall be denoted as an
+    invalid argument.</p>
+<p class="Pp"><var class="Vt">enum mjo_arg_option_mask</var></p>
+<table class="Bl-column Bd-indent">
+  <tr>
+    <td>mjo_arg_option_mask_short</td>
+    <td>option switch is a short identifier &#x2018;-&#x2019;</td>
+  </tr>
+  <tr>
+    <td>mjo_arg_option_mask_long</td>
+    <td>option switch is a long identifier &#x2018;--&#x2019;</td>
+  </tr>
+  <tr>
+    <td>mjo_arg_option_mask_required</td>
+    <td>option is required</td>
+  </tr>
+  <tr>
+    <td>mjo_arg_option_mask_vector</td>
+    <td>option can be repeated (array)</td>
+  </tr>
+</table>
+<p class="Pp"><var class="Vt">enum mjo_arg_argument_mask</var></p>
+<table class="Bl-column Bd-indent">
+  <tr>
+    <td>mjo_arg_argument_mask_required</td>
+    <td>argument is required</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">RETURN
+  VALUES</a></h1>
+<p class="Pp">If any of the arguments are invalid, the return code shall be
+    <code class="Er">MJO_FAIL</code> and errno shall be set to
+    <code class="Er">EINVAL</code>.</p>
+<p class="Pp">If an option with the attribute <var class="Fa">i_attribute</var>
+    already exists, the return code shall be <code class="Er">MJO_FAIL</code>
+    and errno shall be set to <code class="Er">EEXIST</code>.</p>
+<p class="Pp">If the option was sucessfully inserted, the return code shall be
+    <code class="Er">MJO_OK</code>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">Attributes may be comprised of one or more ASCII alpha-numeric
+    ('a-z', 'A-Z', '0-9') characters and the hypen/minus ('-') character.
+    However, a hypen must not be the first or last character.</p>
+<p class="Pp"><var class="Fa">i_variant</var> must be one of the following
+    variants:</p>
+<ul class="Bl-item">
+  <li>mjo_vector_variant_ptrstr</li>
+  <li>mjo_vector_variant_short</li>
+  <li>mjo_vector_variant_ushort</li>
+  <li>mjo_vector_variant_bool</li>
+  <li>mjo_vector_variant_int</li>
+  <li>mjo_vector_variant_uint</li>
+  <li>mjo_vector_variant_long</li>
+  <li>mjo_vector_variant_ulong</li>
+  <li>mjo_vector_variant_size_t</li>
+  <li>mjo_vector_variant_ptrdiff_t</li>
+  <li>mjo_vector_variant_double</li>
+</ul>
+<p class="Pp">A copy of <var class="Fa">i_attribute</var> and
+    <var class="Fa">i_description</var> is created and stored internally.</p>
+<p class="Pp">To process operands, an option with attribute
+    <var class="Vt">mjo_arg_option_internal_operand_str</var> shall be created
+    as follows:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>  mjo_arg_option(
+    args,
+    mjo_arg_option_mask_vector,
+    (unsigned char*)mjo_arg_option_internal_operand_str,
+    (unsigned char*)&quot;list of files&quot;,
+    mjo_arg_argument_mask_required_no,
+    mjo_vector_variant_ptrstr);</pre>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_arg_parse.3.html">mjo_arg_parse(3)</a>
+    <a class="Xr" href="mjo_arg_parse_block.3.html">mjo_arg_parse_block(3)</a>
+    <a class="Xr" href="mjo_arg_parse_file.3.html">mjo_arg_parse_file(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 25, 2021</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

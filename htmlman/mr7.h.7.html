@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mr7.h(7)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mr7.h(7)</td>
+    <td class="head-vol">Miscellaneous Information Manual</td>
+    <td class="head-rtitle">mr7.h(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mr7.h</code> &#x2014; <span class="Nd">ASCII
+    constants and utility routines</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="LIBRARY"><a class="permalink" href="#LIBRARY">LIBRARY</a></h1>
+<p class="Pp"><span class="Lb">library &#x201C;libmjo&#x201D;</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mr7.h</a>&gt;</code></p>
+<p class="Pp">enum mjo_r7 {</p>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_nul</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_soh</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_stx</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_etx</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_eot</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_enq</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_ack</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_bel</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_bs</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_ht</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lf</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_vt</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_ff</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_cr</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_so</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_si</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dle</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dc1</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dc2</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dc3</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dc4</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_nak</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_syn</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_etb</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_can</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_em</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_sub</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_esc</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_fs</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_gs</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_rs</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_us</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_space</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_exclamation</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_quote</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_hash</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_dollar</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_pct</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_ampersand</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_squote</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lparen</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_rparen</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_asterisk</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_plus</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_comma</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_minus</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_period</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_slash</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_0</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_1</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_2</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_3</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_4</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_5</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_6</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_7</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_8</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_9</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_colon</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_semicolon</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lessthan</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_equal</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_greaterthan</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_question</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_at</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_a</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_b</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_c</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_d</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_e</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_f</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_g</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_h</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_i</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_j</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_k</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_l</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_m</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_n</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_o</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_p</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_q</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_r</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_s</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_t</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_u</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_v</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_w</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_x</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_y</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_upr_z</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lbracket</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_backslash</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_rbracket</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_caret</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_underscore</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7ick</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_a</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_b</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_c</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_d</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_e</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_f</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_g</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_h</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_i</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_j</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_k</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_l</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_m</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_n</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_o</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_p</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_q</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_r</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_s</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_t</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_u</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_v</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_w</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_x</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_y</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lwr_z</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_lbrace</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_pipe</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_rbrace</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_tilde</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_r7_del</code></code></div>
+};
+<p class="Pp">
+  <br/>
+  <code class="Fd">#define mjo_r7_dirsep</code>
+  <br/>
+  <code class="Fd">#define mjo_r7_dirsep_str</code></p>
+<p class="Pp">
+  <br/>
+  <code class="Fd">#define mjo_r7_nil_str</code>
+  <br/>
+  <code class="Fd">#define mjo_r7_space_str</code></p>
+<p class="Pp">
+  <br/>
+  <var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_r7_hash</code>(<var class="Fa">size_t *const</var>,
+    <var class="Fa">void *const</var>, <var class="Fa">size_t const</var>,
+    <var class="Fa">unsigned char const</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="INCLUDES"><a class="permalink" href="#INCLUDES">INCLUDES</a></h1>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="In">&lt;<a class="In">stddef.h</a>&gt;</code></code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Provides symbolic constants for the ASCII character set
+    (0x00-0x7F) and additional utility routines.</p>
+<p class="Pp">Following are commonly used constants defined in the header</p>
+<table class="Bl-column Bd-indent">
+  <tr>
+    <td>mjo_r7_dirsep</td>
+    <td>directory separator constant (character form)</td>
+  </tr>
+  <tr>
+    <td>mjo_r7_dirsep_str</td>
+    <td>directory separator constant (string form)</td>
+  </tr>
+  <tr>
+    <td>mjo_r7_nil_str</td>
+    <td>nil constant (string form)</td>
+  </tr>
+  <tr>
+    <td>mjo_r7_space_str</td>
+    <td>space constant (string form)</td>
+  </tr>
+</table>
+<p class="Pp">&#x201C;mjo_r7_dirsep&#x201D; and
+    &#x201C;mjo_r7_dirsep_str&#x201D; are platform specific.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mu8.h(7)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mu8.h(7)</td>
+    <td class="head-vol">Miscellaneous Information Manual</td>
+    <td class="head-rtitle">mu8.h(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mu8.h</code> &#x2014;
+    <span class="Nd">zero-terminated UTF-8 string routines and
+  constants</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="LIBRARY"><a class="permalink" href="#LIBRARY">LIBRARY</a></h1>
+<p class="Pp"><span class="Lb">library &#x201C;libmjo&#x201D;</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mu8.h</a>&gt;</code></p>
+<p class="Pp">
+  <br/>
+  <var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_u8_calc</code>(<var class="Fa"> int *const </var>,
+    <var class="Fa"> size_t * const </var>, <var class="Fa"> unsigned char const
+    </var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_u8_validate</code>(<var class="Fa"> int *const </var>,
+    <var class="Fa"> unsigned char const **const </var>, <var class="Fa">
+    unsigned char const *</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_u8_validate_nth_sequence</code>(<var class="Fa"> unsigned
+    char const *</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim</code>(<var class="Fa"> unsigned char const
+    *</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim_left</code>(<var class="Fa"> unsigned char const
+    *</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim_right</code>(<var class="Fa"> unsigned char const
+    *</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="INCLUDES"><a class="permalink" href="#INCLUDES">INCLUDES</a></h1>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="In">&lt;<a class="In">stddef.h</a>&gt;</code></code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Provides calculation, validation and manipulation routines for the
+    unicode UTF-8 set.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_u8_calc.3.html">mjo_u8_calc(3)</a>,
+    <a class="Xr" href="mjo_u8_validate.3.html">mjo_u8_validate(3)</a>,
+    <a class="Xr" href="mjo_u8_trim.3.html">mjo_u8_trim(3)</a>,
+    <a class="Xr" href="mjo_u8_trim_left.3.html">mjo_u8_trim_left(3)</a>,
+    <a class="Xr" href="mjo_u8_trim_right.3.html">mjo_u8_trim_right(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mstdlib</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mstdlib</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mstdlib</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_calloc</code>,
+    <code class="Nm">mjo_free</code>, <code class="Nm">mjo_malloc</code>,
+    <code class="Nm">mjo_realloc</code> &#x2014; <span class="Nd">allocate,
+    resize or release a memory resource</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mstdlib.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_calloc</code>(<var class="Fa">void **const o_obj</var>,
+    <var class="Fa">size_t const i_obj_count</var>, <var class="Fa">size_t const
+    i_obj_size</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_free</code>(<var class="Fa">void **const
+  io_obj</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_malloc</code>(<var class="Fa">void **const o_obj</var>,
+    <var class="Fa">size_t const i_obj_count</var>, <var class="Fa">size_t const
+    i_obj_size</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_realloc</code>(<var class="Fa">void **const io_obj</var>,
+    <var class="Fa">size_t const i_obj_count</var>, <var class="Fa">size_t const
+    i_obj_size</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_calloc"><code class="Fn" id="mjo_calloc">mjo_calloc</code></a>()
+    is a macro, which calls
+    <a class="permalink" href="#mjo_mem_calloc"><code class="Fn" id="mjo_mem_calloc">mjo_mem_calloc</code></a>()
+    to allocate a zero filled memory resource.</p>
+<p class="Pp" id="mjo_malloc"><a class="permalink" href="#mjo_malloc"><code class="Fn">mjo_malloc</code></a>()
+    is a macro, which calls
+    <a class="permalink" href="#mjo_mem_malloc"><code class="Fn" id="mjo_mem_malloc">mjo_mem_malloc</code></a>()
+    to allocate an uninitialized memory resource.</p>
+<p class="Pp" id="mjo_realloc"><a class="permalink" href="#mjo_realloc"><code class="Fn">mjo_realloc</code></a>()
+    is a macro, which calls
+    <a class="permalink" href="#mjo_mem_realloc"><code class="Fn" id="mjo_mem_realloc">mjo_mem_realloc</code></a>()
+    to change the size of a memory resource.</p>
+<p class="Pp" id="mjo_free"><a class="permalink" href="#mjo_free"><code class="Fn">mjo_free</code></a>()
+    is a macro, which calls
+    <a class="permalink" href="#mjo_mem_free"><code class="Fn" id="mjo_mem_free">mjo_mem_free</code></a>()
+    to release a memory resource.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_obj</var></dt>
+  <dd>pointer to &#x2018;void *&#x2019; that shall be set to the address of a
+      newly created memory resource</dd>
+  <dt><var class="Fa">i_obj_count</var></dt>
+  <dd>count of objects to allocate</dd>
+  <dt><var class="Fa">i_obj_size</var></dt>
+  <dd>size of an object</dd>
+  <dt><var class="Fa">io_obj</var></dt>
+  <dd>pointer to a &#x2018;void *&#x2019; that shall be an address of a
+      previously allocated memory resource</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt>Release Resource</dt>
+  <dd>If both <var class="Fa">io_obj</var> and <var class="Fa">*io_obj</var> is
+      not nil, <a class="Xr" href="free.3.html">free(3)</a> shall be invoked on
+      the resource <var class="Fa">*io_obj</var> and *io_obj shall be set to
+      nil.</dd>
+  <dt>Allocate Resource</dt>
+  <dd>The memory allocation routines shall allocate a block of memory from the
+      heap using standard library calls
+      (<a class="Xr" href="malloc.3.html">malloc(3)</a>,
+      <a class="Xr" href="calloc.3.html">calloc(3)</a>, and
+      <a class="Xr" href="realloc.3.html">realloc(3)</a>). The length (in
+      octets) that shall be allocated is the product of multiplying the
+      multiplicand <var class="Fa">i_object_count</var> by the multiplier
+      <var class="Fa">i_object_size</var> (<var class="Fa">i_object_count</var>
+      <span class="No">*</span> <var class="Fa">i_object_size</var>).
+    <p class="Pp">If <var class="Fa">o_obj</var> is nil,
+        <var class="Fa">mjo_abort</var> shall be invoked with error code
+      EINVAL.</p>
+    <p class="Pp" id="mjo_abort">If an overflow occurs as a result of the
+        multiplication operation
+        <a class="permalink" href="#mjo_abort"><code class="Fn">mjo_abort</code></a>()
+        shall be invoked with error code E2BIG.</p>
+    <p class="Pp" id="mjo_abort~2">If the system allocation routine fails,
+        <a class="permalink" href="#mjo_abort~2"><code class="Fn">mjo_abort</code></a>()
+        shall be invoked with error code <code class="Er">errno</code>.</p>
+    <dl class="Bl-tag">
+      <dt>mjo_malloc and mjo_calloc</dt>
+      <dd>If the product is zero, a one (1) octet block of memory shall be
+          allocated.</dd>
+      <dt>mjo_realloc</dt>
+      <dd>If the product is zero, mjo_free shall be invoked to release the
+          memory resource (<var class="Fa">*o_obj</var>)
+        <p class="Pp" id="mjo_malloc~2">If <var class="Fa">*o_obj</var> is nil,
+            <a class="permalink" href="#mjo_malloc~2"><code class="Fn">mjo_malloc</code></a>()
+            shall be invoked to allocate the memory resource.</p>
+        <p class="Pp">If <var class="Fa">*o_obj</var> is not nil,
+            <a class="Xr" href="realloc.3.html">realloc(3)</a> shall be invoked
+            to resize the memory resource.</p>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">Both
+    <a class="permalink" href="#mjo_malloc~3"><code class="Fn" id="mjo_malloc~3">mjo_malloc</code></a>()
+    and <code class="Fn">mjo_calloc</code>() do not check if
+    <var class="Fa">*o_obj</var> is a valid memory resource. That is, it is the
+    callers responsibility to track and release a valid resource.</p>
+<p class="Pp" id="mjo_realloc~2"><a class="permalink" href="#mjo_realloc~2"><code class="Fn">mjo_realloc</code></a>()
+    expects <var class="Fa">*o_obj</var> to be zero or a valid previously
+    allocated block of memory. Following the call to .Fn realloc the address may
+    change in which, the previous address will be released. See
+    <a class="Xr" href="realloc.3.html">realloc(3)</a>, for further details.
+    <a class="permalink" href="#mjo_mem_free~2"><code class="Fn" id="mjo_mem_free~2">mjo_mem_free</code></a>().</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="calloc.3.html">calloc(3)</a>,
+    <a class="Xr" href="free.3.html">free(3)</a>,
+    <a class="Xr" href="malloc.3.html">malloc(3)</a>,
+    <a class="Xr" href="realloc.3.html">realloc(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

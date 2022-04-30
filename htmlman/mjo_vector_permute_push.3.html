@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2021 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjoextra library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mvector</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mvector</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mvector</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_vector_permute_push</code> &#x2014;
+    <span class="Nd">Permute a string and append the result to the end of the
+    vector</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mvector.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_vector_permute_push</code>(<var class="Fa">mjo_vector_t
+    *const io_var</var>, <var class="Fa">unsigned char const *i_str</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Transform (permute) a string to a vector's internal representation
+    (data type) and then append it.</p>
+<table class="Bl-column Bd-indent">
+  <tr id="mjo_vector_malloc">
+    <td>mjo_vector_variant_struct</td>
+    <td>resize the vector by object size octets
+      (<var class="Vt">i_size_struct</var> argument of
+      <a class="permalink" href="#mjo_vector_malloc"><code class="Fn">mjo_vector_malloc</code></a>())
+      and then append <var class="Vt">i_size_struct</var> octets of
+      <var class="Fa">i_str</var> to the end of the vector.</td>
+  </tr>
+  <tr>
+    <td>mjo_vector_variant_ptrstr</td>
+    <td>resize the vector by the size of an address/pointer (ptrdiff_t) and then
+      copy the address of a newly duplicated string <var class="Fa">i_str</var>
+      onto the end of the vector.</td>
+  </tr>
+  <tr>
+    <td>mjo_vector_variant_char</td>
+    <td>resize the vector by <a class="Xr" href="strlen.3.html">strlen(3)</a> of
+      <var class="Fa">i_str</var> and then copy the octets of
+      <var class="Fa">i_str</var> onto the end of the vector.</td>
+  </tr>
+  <tr id="mjo_str_to_short">
+    <td>mjo_vector_variant_short</td>
+    <td>resize the vector by the size of a short and then convert
+      (<a class="permalink" href="#mjo_str_to_short"><code class="Fn">mjo_str_to_short</code></a>())
+      the ASCII numeric value to a short and store the value at the end of the
+      vector.</td>
+  </tr>
+  <tr id="mjo_str_to_ushort">
+    <td>mjo_vector_variant_ushort</td>
+    <td>resize the vector by the size of an unsigned short and then convert
+      (<a class="permalink" href="#mjo_str_to_ushort"><code class="Fn">mjo_str_to_ushort</code></a>())
+      the ASCII numeric value to a unsigned short and store the value at the end
+      of the vector.</td>
+  </tr>
+  <tr id="mjo_str_to_bool">
+    <td>mjo_vector_variant_bool</td>
+    <td>resize the vector by the size of an int and then convert
+      (<a class="permalink" href="#mjo_str_to_bool"><code class="Fn">mjo_str_to_bool</code></a>())
+      the ASCII numeric value to a boolean and store the value at the end of the
+      vector.
+    <p class="Pp">A boolean value of true can be one of the following
+        conditions:</p>
+    <ul class="Bl-item">
+      <li><var class="Fa">i_str is nill</var></li>
+      <li><var class="Fa">i_str is empty</var></li>
+      <li><var class="Fa">*i_str is equal to '1'</var></li>
+      <li><var class="Fa">*i_str is equal to 't'</var></li>
+      <li><var class="Fa">*i_str is equal to 'T'</var></li>
+    </ul>
+    </td>
+  </tr>
+  <tr id="mjo_str_to_int">
+    <td>mjo_vector_variant_int</td>
+    <td>resize the vector by the size of an int and then convert
+      (<a class="permalink" href="#mjo_str_to_int"><code class="Fn">mjo_str_to_int</code></a>())
+      the ASCII numeric value to an int and store the value at the end of the
+      vector.</td>
+  </tr>
+  <tr id="mjo_str_to_uint">
+    <td>mjo_vector_variant_uint</td>
+    <td>resize the vector by the size of an unsigned int and then convert
+      (<a class="permalink" href="#mjo_str_to_uint"><code class="Fn">mjo_str_to_uint</code></a>())
+      the ASCII numeric value to an unsigned int and store the value at the end
+      of the vector.</td>
+  </tr>
+  <tr id="mjo_str_to_long">
+    <td>mjo_vector_variant_long</td>
+    <td>resize the vector by the size of a long and then convert
+      (<a class="permalink" href="#mjo_str_to_long"><code class="Fn">mjo_str_to_long</code></a>())
+      the ASCII numeric value to a long and store the value at the end of the
+      vector.</td>
+  </tr>
+  <tr id="mjo_str_to_ulong">
+    <td>mjo_vector_variant_ulong</td>
+    <td>resize the vector by the size of an unsigned long and then convert
+      (<a class="permalink" href="#mjo_str_to_ulong"><code class="Fn">mjo_str_to_ulong</code></a>())
+      the ASCII numeric value to a unsigned long and store the value at the end
+      of the vector.</td>
+  </tr>
+  <tr id="mjo_str_to_size_t">
+    <td>mjo_vector_variant_size_t</td>
+    <td>resize the vector by the size of a size_t and then convert
+      (<a class="permalink" href="#mjo_str_to_size_t"><code class="Fn">mjo_str_to_size_t</code></a>())
+      the ASCII numeric value to a size_t and store the value at the end of the
+      vector.</td>
+  </tr>
+  <tr id="mjo_str_to_ptrdiff_t">
+    <td>mjo_vector_variant_ptrdiff_t</td>
+    <td>resize the vector by the size of a ptrdiff_t and then convert
+      (<a class="permalink" href="#mjo_str_to_ptrdiff_t"><code class="Fn">mjo_str_to_ptrdiff_t</code></a>())
+      the ASCII numeric value to ptrdiff_t and store the value at the end of the
+      vector.</td>
+  </tr>
+  <tr id="mjo_str_to_pa">
+    <td>mjo_vector_variant_double</td>
+    <td>resize the vector by the size of a double and then convert
+      (<a class="permalink" href="#mjo_str_to_pa"><code class="Fn">mjo_str_to_pa</code></a>(<var class="Fa">double</var>))
+    <br/>
+     the ASCII numeric value to a double and store the value at the end of the
+      vector.</td>
+  </tr>
+</table>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_var</var></dt>
+  <dd>pointer to a &#x2018;mjo_vector_t&#x2019; to add an object too</dd>
+  <dt><var class="Fa">i_str</var></dt>
+  <dd>a value in ASCII representation to permute and append to the vector</dd>
+</dl>
+<p class="Pp">If <var class="Fa">io_var</var> or <var class="Fa">i_str</var> is
+    nil, or <var class="Fa">*i_str</var> is empty, it shall be denoted as an
+    invalid argument.</p>
+<p class="Pp">The number of elements in the vector will increase by one.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">RETURN
+  VALUES</a></h1>
+<p class="Pp">If any of the arguments are invalid, the return code shall be
+    <code class="Er">MJO_FAIL</code> and <var class="Va">errno</var> shall be
+    set to <code class="Er">EINVAL</code>.</p>
+<p class="Pp">If the internal size (<var class="Vt">i_size_struct</var> argument
+    of <code class="Fn">mjo_vector_malloc</code>()) is zero,
+    <var class="Va">errno</var> shall be set to <code class="Er">E2BIG</code>
+    and return code shall be <code class="Er">MJO_FAIL</code>.</p>
+<p class="Pp">If the conversion fails, <var class="Va">errno</var> shall be set
+    <code class="Er">ERANGE</code> to denote a conversion issue and the return
+    code shall be <code class="Er">MJO_FAIL</code>. Upon success, the return
+    value shall be <code class="Er">MJO_OK</code>.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 25, 2021</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

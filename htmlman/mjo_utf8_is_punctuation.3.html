@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mutf8</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mutf8</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mutf8</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_utf8_is_punctuation</code> &#x2014;
+    <span class="Nd">determine if an UTF-8 is a punctuation mark</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mutf8.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_utf8_is_punctuation</code>(<var class="Fa">int *const
+    o_is_punctuation</var>, <var class="Fa">struct mjo_utf8 const *const
+    i_peek</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Determine if an UTF-8 character is a punctuation mark.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_is_punctuation</var></dt>
+  <dd>pointer to an &#x2018;int&#x2019; (boolean) indicator of whether or not
+      <var class="Fa">i_peek</var> is a UTF-8 punctuation character</dd>
+  <dt><var class="Fa">i_peek</var> UTF-8 character to process</dt>
+  <dd style="width: auto;">&#x00A0;</dd>
+</dl>
+<p class="Pp"><var class="Fa">o_is_punctuation</var> is nil, it shall not be
+    set.</p>
+<p class="Pp">If <var class="Fa">i_peek</var> is nil, invalid or empty, it shall
+    not be evaluated.</p>
+<p class="Pp">If <var class="Fa">i_peek</var> is a punctuation mark, the routine
+    shall set the boolean indicator <var class="Fa">*o_is_punctuation</var> to
+    true. Otherwise, the routine shall set the indicator to false.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">RETURN
+  VALUES</a></h1>
+<p class="Pp">If any of the arguments are invalid, the return code shall be
+    <code class="Er">MJO_FAIL</code> and errno shall be set to
+    <code class="Er">EINVAL</code>. Otherwise, the return code shall be
+    <code class="Er">MJO_OK</code> and errno will remain unchanged.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">For a list of punctuation symbols, please refer to the source
+    file:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent Li">
+<pre><span class="Pa">${MJO_HOME}/src/mpunct.c</span></pre>
+</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

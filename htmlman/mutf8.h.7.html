@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mutf8.h(7)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mutf8.h(7)</td>
+    <td class="head-vol">Miscellaneous Information Manual</td>
+    <td class="head-rtitle">mutf8.h(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mutf8.h</code> &#x2014; <span class="Nd">UTF-8
+    data structure, constants and routines</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="LIBRARY"><a class="permalink" href="#LIBRARY">LIBRARY</a></h1>
+<p class="Pp"><span class="Lb">library &#x201C;libmjo&#x201D;</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mutf8.h</a>&gt;</code></p>
+<p class="Pp">enum {</p>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_utf8_max_octets</code></code></div>
+,
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="Dv">mjo_utf8_replacement</code></code></div>
+};
+<p class="Pp">struct mjo_utf8 {</p>
+<div class="Bd Bd-indent"><code class="Li"><var class="Vt">int</var>
+  <var class="Va">m_valid</var> ;</code></div>
+<div class="Bd Bd-indent"><code class="Li"><var class="Vt">uint8_t char</var>
+  <var class="Va">m_block</var>
+  [<a class="permalink" href="#mjo_utf8_max_octets"><i class="Em" id="mjo_utf8_max_octets">mjo_utf8_max_octets</i></a>
+  <span class="No">];</span></code></div>
+<div class="Bd Bd-indent"><code class="Li"><var class="Vt">unsigned int</var>
+  <var class="Va">m_nil</var> ;</code></div>
+<div class="Bd Bd-indent"><code class="Li"><var class="Vt">size_t</var>
+  <var class="Va">m_octets</var> ;</code></div>
+};
+<p class="Pp">
+  <br/>
+  <var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_utf8_compose</code>(<var class="Fa">enum mjo_status
+    *const</var>, <var class="Fa">unsigned char const **const</var>,
+    <var class="Fa">struct mjo_utf8 *const</var>, <var class="Fa">unsigned char
+    const *</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_utf8_is_punctuation</code>(<var class="Fa">int
+    *const</var>, <var class="Fa">struct mjo_utf8 const *const</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_utf8_is_quote</code>(<var class="Fa">int *const</var>,
+    <var class="Fa">struct mjo_utf8 const *const</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_utf8_is_whitespace</code>(<var class="Fa">int
+    *const</var>, <var class="Fa">struct mjo_utf8 const *const</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_utf8_strchr</code>(<var class="Fa">unsigned char const
+    *</var>, <var class="Fa">struct mjo_utf8 const *const</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="INCLUDES"><a class="permalink" href="#INCLUDES">INCLUDES</a></h1>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="In">&lt;<a class="In">mstdio.h</a>&gt;</code></code></div>
+<div class="Bd
+  Bd-indent"><code class="Li"><code class="In">&lt;<a class="In">mstddef.h</a>&gt;</code></code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">Provides UTF-8 character data structure, constants and
+  routines.</p>
+<p class="Pp"><var class="Vt">enum</var></p>
+<table class="Bl-column Bd-indent">
+  <tr>
+    <td>mjo_utf8_max_octets</td>
+    <td>maximum number of octets that can comprise an UTF-8 character</td>
+  </tr>
+  <tr>
+    <td>mjo_utf8_replacement</td>
+    <td>UTF-8 replacement sequence for an invalid character</td>
+  </tr>
+</table>
+<p class="Pp"><var class="Vt">struct mjo_utf8</var></p>
+<table class="Bl-column Bd-indent">
+  <tr>
+    <td>m_valid</td>
+    <td>indicator if the buffer is valid</td>
+  </tr>
+  <tr>
+    <td>m_block</td>
+    <td>buffer to hold a single UTF-8 character</td>
+  </tr>
+  <tr>
+    <td>m_nil</td>
+    <td>buffer terminator and padding (always 0)</td>
+  </tr>
+  <tr>
+    <td>m_octets</td>
+    <td>number of octets comprising the UTF-8 character</td>
+  </tr>
+</table>
+<p class="Pp">When <var class="Fa">m_valid</var> is false,
+    <var class="Fa">m_block</var> shall contain the offending octet and
+    <var class="Fa">m_octets</var> shall be set to one (1).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_utf8_compose.3.html">mjo_utf8_compose(3)</a>,
+    <a class="Xr" href="mjo_utf8_is_punctuation.3.html">mjo_utf8_is_punctuation(3)</a>,
+    <a class="Xr" href="mjo_utf8_is_quote.3.html">mjo_utf8_is_quote(3)</a>,
+    <a class="Xr" href="mjo_utf8_is_whitespace.3.html">mjo_utf8_is_whitespace(3)</a>,
+    <a class="Xr" href="mjo_utf8_strchr.3.html">mjo_utf8_strchr(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

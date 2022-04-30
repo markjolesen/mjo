@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mstdlib</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mstdlib</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mstdlib</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_search_binary</code> &#x2014;
+    <span class="Nd">Perform a binary search on an array that is sorted in
+    ascending order</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+    &lt;<a class="In">mstdlib.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_search_binary</code>(<var class="Fa">int *const
+    o_found</var>, <var class="Fa">size_t * const o_slot</var>,
+    <var class="Fa">void const * i_array</var>, <var class="Fa">size_t const
+    i_object_size</var>, <var class="Fa">size_t const i_slots</var>,
+    <var class="Fa">mjo_search_compare_t const i_compare</var>,
+    <var class="Fa">void const *const i_object_to_find</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_search_binary"><code class="Fn" id="mjo_search_binary">mjo_search_binary</code></a>()
+    shall perform a binary search on an array (<var class="Fa">i_array</var>)
+    that is sorted in ascending order looking for the object
+    <var class="Fa">i_object_to_find</var>.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_found</var></dt>
+  <dd>pointer to an &#x2018;int&#x2019; (boolean) that shall be set to indicate
+      whether or not the object was found</dd>
+  <dt><var class="Fa">o_slot</var></dt>
+  <dd>pointer to a &#x2018;size_t&#x2019; that shall be set to the index of
+      where the object was found or where it can be inserted</dd>
+  <dt><var class="Fa">i_array</var></dt>
+  <dd>array of objects to search</dd>
+  <dt><var class="Fa">i_object_size</var></dt>
+  <dd>size of an object</dd>
+  <dt><var class="Fa">i_slots</var></dt>
+  <dd>count of objects in the array</dd>
+  <dt><var class="Fa">i_compare</var></dt>
+  <dd>compare routine</dd>
+  <dt><var class="Fa">i_object_to_find</var></dt>
+  <dd>object to find in the array</dd>
+</dl>
+<p class="Pp">If <var class="Fa">o_found</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">o_slot</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">i_array</var> or the function pointer
+    <var class="Fa">i_compare</var> is nil or if
+    <var class="Fa">i_object_size</var> or <var class="Fa">i_slots</var> is
+    zero, <var class="Fa">*o_found</var> shall be set to false and
+    <var class="Fa">*o_slot</var> shall be set to zero.</p>
+<p class="Pp">If the object <var class="Fa">i_obj_to_find</var> is found in the
+    array, <var class="Fa">*o_found</var> shall be set to true and
+    <var class="Fa">*o_slot</var> shall be set to the index position of the
+    object.</p>
+<p class="Pp">If the object is not found in the array,
+    <var class="Fa">*o_found</var> shall be set to false and
+    <var class="Fa">*o_slot</var> shall be set to the insertion point.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp"><var class="Fa">i_array</var> must have no less than
+    <var class="Fa">i_slots</var> elements.</p>
+<p class="Pp"><var class="Fa">i_array</var> elements shall be homogeneous.
+    Objects shall have an exact data structure layout and must be
+    <var class="Fa">i_object_size</var> octets in length.</p>
+<p class="Pp">The function pointer <var class="Fa">i_compare</var> shall compare
+    two objects and return a comparison status indicator of whether the first
+    object is equal to, less than or greater than the second object.</p>
+<p class="Pp">If the first object (object to compare) is equal to the second
+    object (<var class="Fa">i_object_to_find</var>),
+    <var class="Fa">i_compare</var> shall return zero.</p>
+<p class="Pp">If the first object (object to compare) is less than the second
+    object (<var class="Fa">i_object_to_find</var>),
+    <var class="Fa">i_compare</var> shall return a negative number.</p>
+<p class="Pp">If the first object (object to compare) is greater then the second
+    object (<var class="Fa">i_object_to_find</var>),
+    <var class="Fa">i_compare</var> shall return a positive number.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

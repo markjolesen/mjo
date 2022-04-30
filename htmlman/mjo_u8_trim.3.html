@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mu8</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mu8</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mu8</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_u8_trim</code>
+    <code class="Nm">mjo_u8_trim_left</code>
+    <code class="Nm">mjo_u8_trim_right</code> &#x2014; <span class="Nd">remove
+    leading and/or trailing white-space characters</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mu8.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim</code>(<var class="Fa">unsigned char
+    *io_str</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim_left</code>(<var class="Fa">unsigned char
+    *io_str</var>);</p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_u8_trim_right</code>(<var class="Fa">unsigned char
+    *io_str</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_u8_trim"><code class="Fn" id="mjo_u8_trim">mjo_u8_trim</code></a>()
+    is a convenience routine that shall invoke both
+    <code class="Fn">mjo_u8_trim_left</code>() and
+    <code class="Fn">mjo_u8_trim_right</code>().</p>
+<p class="Pp" id="mjo_u8_trim_left"><a class="permalink" href="#mjo_u8_trim_left"><code class="Fn">mjo_u8_trim_left</code></a>()
+    shall remove leading white-space characters.</p>
+<p class="Pp" id="mjo_u8_trim_right"><a class="permalink" href="#mjo_u8_trim_right"><code class="Fn">mjo_u8_trim_right</code></a>()
+    shall remove trailing white-space characters.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_str</var></dt>
+  <dd>zero terminated string</dd>
+</dl>
+<p class="Pp">If <var class="Fa">io_str</var> is nil or empty or it shall not be
+    trimmed.</p>
+<p class="Pp" id="mjo_u8_trim_left~2"><a class="permalink" href="#mjo_u8_trim_left~2"><code class="Fn">mjo_u8_trim_left</code></a>()
+    shall iterate from the beginning of the string up until a termination octet
+    is encountered or a non white-space character is found.</p>
+<p class="Pp">If leading white-space is found, octets from the position of the
+    first non white-space character to the end of the string shall be shifted
+    left to the beginning of the string.</p>
+<p class="Pp" id="mjo_u8_trim_right~2"><a class="permalink" href="#mjo_u8_trim_right~2"><code class="Fn">mjo_u8_trim_right</code></a>()
+    shall iterate from the beginning of the string up until the end of the
+    string keeping track of the position of the white-space character
+    encountered. If the remaining sequence up until the end of the string is
+    white-space, the saved offset shall be replaced with a termination
+  octet.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">Invalid UTF-8 characters shall be considered non-white-space
+    characters.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_utf8_is_whitespace.3.html">mjo_utf8_is_whitespace(3)</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<div class="Bd Bd-indent Li">
+<pre>#include &lt;mstdio.h&gt;
+#include &lt;mstring.h&gt;
+#include &lt;mu8.h&gt;
+
+int
+  main()
+{
+  unsigned char utf8string[] = { &quot;        Non White0 };
+
+  printf(&quot;before trim: %s0, (char *)utf8string);
+  printf(&quot;        len: %lu0, strlen((char *)utf8string));
+  mjo_u8_trim(utf8string);
+  printf(&quot; after trim: %s0, (char *)utf8string);
+  printf(&quot;        len: %lu0, strlen((char *)utf8string));
+
+  return 0;
+}</pre>
+</div>
+<p class="Pp">OUTPUT</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>before trim:         Non White
+
+        len: 19
+ after trim: Non White
+        len: 9</pre>
+</div>
+<p class="Pp">SOURCE</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><span class="Pa">${MJO_HOME}/examples/trim.c</span></div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

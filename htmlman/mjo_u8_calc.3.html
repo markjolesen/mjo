@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mu8</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mu8</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mu8</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_u8_calc</code> &#x2014;
+    <span class="Nd">determine if an octet is the start of a UTF-8
+    sequence</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mu8.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_u8_calc</code>(<var class="Fa">int *const o_legal</var>,
+    <var class="Fa">size_t *const o_octets</var>, <var class="Fa">unsigned char
+    const i_octet</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_u8_calc"><code class="Fn" id="mjo_u8_calc">mjo_u8_calc</code></a>()
+    shall determine if <var class="Fa">i_octet</var> is the start of a UTF-8
+    sequence.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_legal</var></dt>
+  <dd>pointer to an &#x2018;int&#x2019; (boolean) indicator that shall be set to
+      whether or not the octet is valid</dd>
+  <dt><var class="Fa">o_octets</var></dt>
+  <dd>pointer to a &#x2018;size_t&#x2019; that shall be set to the count of
+      octets required to compose a complete UTF-8 character.</dd>
+  <dt><var class="Fa">i_octet</var></dt>
+  <dd>octet to validate</dd>
+</dl>
+<p class="Pp">If <var class="Fa">o_legal</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">o_octets.</var> is nil, it shall not be
+  set.</p>
+<p class="Pp">If <var class="Fa">i_octet</var> is the start of an UTF-8
+    sequence, <var class="Fa">*o_legal</var> shall be set to true and
+    <var class="Fa">*o_octets</var> shall be set to the count of octets required
+    to compose the character.</p>
+<p class="Pp">If <var class="Fa">i_octet</var> is an invalid leading UTF-8 byte,
+    <var class="Fa">*o_legal</var> shall be set to false and
+    <var class="Fa">*o_octets</var> shall be set to zero.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_u8_validate.3.html">mjo_u8_validate(3)</a>
+    <a class="Xr" href="mjo_u8_validate_nth_sequence.3.html">mjo_u8_validate_nth_sequence(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

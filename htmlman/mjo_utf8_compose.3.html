@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2020 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_HOME}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjo library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>mutf8</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">mutf8</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">mutf8</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_utf8_compose</code> &#x2014;
+    <span class="Nd">compose an UTF-8 character from a zero terminated
+    string</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">mutf8.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">void</var>
+  <br/>
+  <code class="Fn">mjo_utf8_compose</code>(<var class="Fa">enum mjo_status
+    *const o_status</var>, <var class="Fa">unsigned char const **const
+    o_tail</var>, <var class="Fa">struct mjo_utf8 *const o_peek</var>,
+    <var class="Fa">unsigned char * i_head</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_utf8_compose"><code class="Fn" id="mjo_utf8_compose">mjo_utf8_compose</code></a>()
+    is an UTF-8 iterator. For each invocation, the routine shall parse a
+    sequence of octets from <var class="Fa">i_head</var> into an UTF-8
+    character.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">o_status</var></dt>
+  <dd>pointer to an &#x2018;enum mjo_status&#x2019; that shall be set to one of
+      the following four (4) indicators: (1)
+      <code class="Er">mjo_status_ok</code>, (2)
+      <code class="Er">mjo_status_invalid</code>, (3)
+      <code class="Er">mjo_status_eof</code>, or (4)
+      <code class="Er">mjo_status_truncated</code></dd>
+  <dt><var class="Fa">o_tail</var></dt>
+  <dd>pointer to an &#x2018;unsigned char *&#x2019; that shall be set to the
+      address of the beginning of the next sequence.</dd>
+  <dt><var class="Fa">o_peek</var></dt>
+  <dd>pointer to a &#x2018;struct mjo_utf8&#x2019; that shall be set with a
+      sequence of octets</dd>
+  <dt><var class="Fa">i_head</var></dt>
+  <dd>pointer to a zero terminated string comprised of &#x2018;unsigned
+      char&#x2019; octets.</dd>
+</dl>
+<p class="Pp">If <var class="Fa">o_status</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">o_tail</var> is nil, it shall not be set.</p>
+<p class="Pp">If <var class="Fa">o_peek</var> is nil, the routine shall set
+    <var class="Fa">o_status</var> to <code class="Er">mjo_status_invalid</code>
+    and <var class="Fa">o_tail</var> to nil.</p>
+<p class="Pp">If <var class="Fa">i_head</var> is nil, the routine shall set
+    <var class="Fa">*o_status</var> to
+    <code class="Er">mjo_status_invalid</code> and <var class="Fa">*o_tail</var>
+    shall be set to nil.</p>
+<p class="Pp">If <var class="Fa">*i_head</var> is nil, the routine shall set
+    <var class="Fa">*o_status</var> to
+  <code class="Er">mjo_status_eof</code>.</p>
+<p class="Pp">If <var class="Fa">*i_head</var> is not a valid leading UTF-8
+    octet, <var class="Fa">*o_status</var> shall be set to
+    <code class="Er">mjo_status_invalid</code> and <var class="Fa">*o_tail</var>
+    shall be set to <var class="Fa">i_head</var>.</p>
+<p class="Pp">If <var class="Fa">*i_head</var> is a legal leading UTF-8 octet,
+    the routine shall iterate through the string until an UTF-8 character is
+    composed or an invalid or termination octet is encountered.</p>
+<p class="Pp">If the termination octet is encountered
+    <var class="Fa">*o_status</var> shall be set to
+    <code class="Er">mjo_status_ok</code>.</p>
+<p class="Pp">If the sequence is too long, <var class="Fa">*o_status</var> shall
+    be set to <code class="Er">mjo_status_truncated</code></p>
+<p class="Pp">When processing stops, <var class="Fa">*o_tail</var> shall be set
+    to the address of the beginning of the next sequence or offending octet. In
+    addition, <var class="Fa">o_peek</var> members shall be set as follows:</p>
+<ul class="Bl-item">
+  <li><var class="Fa">m_legal</var> shall be set to whether or not the UTF-8
+      character is valid</li>
+  <li><var class="Fa">m_octets</var> shall be set to the count of octets stored
+      in <var class="Fa">m_block</var></li>
+  <li><var class="Fa">m_block</var> shall be filled with a sequence of
+    octets</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp"><var class="Fa">*o_peek</var> member
+    <var class="Fa">m_octets</var> shall contain the number of octets in member
+    <var class="Fa">m_block</var>.</p>
+<p class="Pp"><var class="Fa">*o_peek</var> member <var class="Fa">m_block</var>
+    shall contain a sequence of octets up until processing stopped or the
+    maximum size of the buffer was reached.</p>
+<p class="Pp">If <var class="Fa">*o_status</var> is
+    <code class="Er">mjo_status_ok</code> <var class="Fa">*o_peek</var> member
+    <var class="Fa">m_legal</var> shall be true.</p>
+<p class="Pp">If <var class="Fa">*o_status</var> is not
+    <code class="Er">mjo_status_ok</code> member <var class="Fa">m_legal</var>
+    shall be false.</p>
+<p class="Pp" id="mjo_utf8_compose~2">To parse a sequence of UTF-8 characters,
+    <var class="Fa">o_tail</var> shall be used in subsequent calls to
+    <a class="permalink" href="#mjo_utf8_compose~2"><code class="Fn">mjo_utf8_compose</code></a>()
+    in place of argument <var class="Fa">i_head</var>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<div class="Bd Bd-indent Li">
+<pre>#include &lt;mstdio.h&gt;
+#include &lt;mutf8.h&gt;
+
+int
+  main()
+{
+  unsigned char const hello_greek[] = { &quot;&#x03B3;&#x03B5;&#x03B9;&#x03B1; &#x03C3;&#x03B1;&#x03C2;&quot; };
+  unsigned char const *tail = hello_greek;
+  enum mjo_status status;
+  struct mjo_utf8 peek;
+  unsigned offset = 0;
+  int exit_code = 0;
+
+  do
+    {
+      mjo_utf8_compose(&amp;status, &amp;tail, &amp;peek, tail);
+
+      if (mjo_status_eof == status)
+        {
+          printf(&quot;End of stream encountered0);
+          break;
+        }
+
+      if (mjo_status_ok != status)
+        {
+          printf(&quot;Invalid utf8 sequence: offset=%u0, offset);
+          exit_code = -1;
+          break;
+        }
+
+      printf(&quot;Offset[%u]=%s0, offset, peek.m_block);
+      offset += peek.m_octets;
+    }
+  while (1);
+
+  return exit_code;
+}</pre>
+</div>
+<p class="Pp">OUTPUT</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>Offset[0]=&#x03B3;
+Offset[2]=&#x03B5;
+Offset[4]=&#x03B9;
+Offset[6]=&#x03B1;
+Offset[8]=
+Offset[9]=&#x03C3;
+Offset[11]=&#x03B1;
+Offset[13]=&#x03C2;
+End of stream encountered</pre>
+</div>
+<p class="Pp">SOURCE</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><span class="Pa">${MJO_HOME}/examples/compose.c</span></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr" href="mjo_u8_validate.3.html">mjo_u8_validate(3)</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 22, 2020</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

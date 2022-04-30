@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+    Copyright (c) 2021 Mark J. Olesen
+  
+    CC BY 4.0
+  
+    This file is licensed under the Creative Commons Attribution 4.0
+    International license.
+  
+    You are free to:
+  
+      Share --- copy and redistribute the material in any medium or format
+  
+      Adapt --- remix, transform, and build upon the material for any purpose,
+                even commercially
+  
+    Under the following terms:
+  
+      Attribution --- You must give appropriate credit, provide a link
+                      to the license, and indicate if changes were made. You
+                      may do so in any reasonable manner, but not in any way
+                      that suggests the licensor endorses you or your use.
+  
+     Full text of this license can be found in
+     '${MJO_EXTRA}/licenses/CC-BY-SA-4.0'or visit
+     'http://creativecommons.org/licenses/by/4.0/' or send a letter
+     to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+  
+    This file is part of mjoextra library
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>marg</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">marg</td>
+    <td class="head-vol">LOCAL</td>
+    <td class="head-rtitle">marg</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">mjo_arg_parse</code>
+    <code class="Nm">mjo_arg_parse_block</code>
+    <code class="Nm">mjo_arg_parse_file</code>
+    <code class="Nm">mjo_arg_parse_vector</code> &#x2014; <span class="Nd">parse
+    commands</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><code class="In">#include
+  &lt;<a class="In">marg.h</a>&gt;</code></p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_arg_parse</code>(<var class="Fa">mjo_arg_t const
+    io_arg</var>, <var class="Fa">mjo_istream_t const io_stream</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_arg_parse_block</code>(<var class="Fa">mjo_arg_t const
+    io_arg</var>, <var class="Fa">void const *i_block</var>,
+    <var class="Fa">size_t const i_octets</var>);</p>
+<p class="Pp"><var class="Ft">in</var>
+  <br/>
+  <code class="Fn">mjo_arg_parse_file</code>(<var class="Fa">mjo_arg_t const
+    io_arg</var>, <var class="Fa">unsigned char const *i_path</var>);</p>
+<p class="Pp"><var class="Ft">int</var>
+  <br/>
+  <code class="Fn">mjo_arg_parse_vector</code>(<var class="Fa">mjo_arg_t const
+    io_arg</var>, <var class="Fa">unsigned char *const *const i_vector</var>,
+    <var class="Fa">size_t const i_slots</var>);</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><a class="permalink" href="#mjo_arg_parse"><code class="Fn" id="mjo_arg_parse">mjo_arg_parse</code></a>()
+    is the entry point to the primary parser engine, which shall parse options
+    and their respective arguments, if any.</p>
+<p class="Pp" id="mjo_arg_parse_block"><a class="permalink" href="#mjo_arg_parse_block"><code class="Fn">mjo_arg_parse_block</code></a>()
+    and <code class="Fn">mjo_arg_parse_block</code>() are convienance routines
+    that shall create an <var class="Vt">mjo_istream_t</var> data type and
+    invoke <code class="Fn">mjo_arg_parse</code>().</p>
+<p class="Pp" id="mjo_arg_parse_vector"><a class="permalink" href="#mjo_arg_parse_vector"><code class="Fn">mjo_arg_parse_vector</code></a>()
+    takes arguments similiar in function to an applications
+    <a class="permalink" href="#main"><code class="Fn" id="main">main</code></a>()
+    routine.</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>  int main(int argc, char *argv[])
+  {
+     mjo_arg_t arg;
+
+     mjo_arg_malloc(&amp;arg, mjo_arg_rule_mask_none);
+
+     mjo_arg_option(arg,
+       mjo_arg_option_mask_long,
+       (unsigned char const *)&quot;help&quot;,
+       (unsigned char const *)&quot;display program options&quot;,
+       0,
+       mjo_vector_variant_bool);
+
+     rc= mjo_arg_parse_vector(arg, argv, argc);
+     ...
+     mjo_arg_free(&amp;arg);
+  }</pre>
+</div>
+<p class="Pp" id="mjo_arg_parse_block~2">The vector will be flattened into a
+    linear block of memory. Following,
+    <a class="permalink" href="#mjo_arg_parse_block~2"><code class="Fn">mjo_arg_parse_block</code></a>()
+    shall be invoked.</p>
+<p class="Pp">Following is a description of the arguments.</p>
+<dl class="Bl-tag">
+  <dt><var class="Fa">io_arg</var></dt>
+  <dd>pointer to a &#x2018;mjo_arg_t&#x2019; where the arguments of options
+      shall be stored</dd>
+  <dt><var class="Fa">io_stream</var></dt>
+  <dd>input stream to read options from</dd>
+  <dt><var class="Fa">i_block</var></dt>
+  <dd>pointer to a fixed length block of memory</dd>
+  <dt><var class="Fa">i_octets</var></dt>
+  <dd>number of octets in the block &#x2018;i_block&#x2019;</dd>
+  <dt><var class="Fa">i_path</var></dt>
+  <dd>path of file containing commands to parse</dd>
+  <dt><var class="Fa">i_vector</var></dt>
+  <dd>array of strings to parse (argv)</dd>
+  <dt><var class="Fa">i_slots</var></dt>
+  <dd>number of elements in the array (argc)</dd>
+</dl>
+<p class="Pp">If <var class="Fa">i_octets</var> or <var class="Fa">i_slots</var>
+    is zero or <var class="Fa">io_arg</var> or <var class="Fa">io_stream</var>
+    or <var class="Fa">i_block</var> or <var class="Fa">i_path</var> or
+    <var class="Fa">i_vector</var> is nil, it shall be denoted as an invalid
+    argument.</p>
+<p class="Pp">If an include &#x2018;@&#x2019; directive is encountered, the file
+    shall be expanded to a full path and compared against previously included
+    files. If it has already been parsed, it shall be ignored. Otherwise, it
+    shall be opened and parsed.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUES"><a class="permalink" href="#RETURN_VALUES">RETURN
+  VALUES</a></h1>
+<p class="Pp">If any of the arguments are invalid, the return code shall be
+    <code class="Er">MJO_FAIL</code> and <var class="Va">errno</var> shall be
+    set to <code class="Er">EINVAL</code>.</p>
+<p class="Pp">If an option is not found while parsing the commands list,
+    MJO_FAIL shall be returned and <var class="Va">errno</var> shall be set to
+    <code class="Er">ENOENT</code>.</p>
+<p class="Pp">If the include directive is unable to open a file,
+    <code class="Er">MJO_FAIL</code> shall be returned and
+    <var class="Vt">errno</var> shall be set by
+    <a class="Xr" href="open.3.html">open(3)</a></p>
+<p class="Pp">A maximum of <var class="Vt">mjo_arg_include_depth_max</var>
+    include files shall be allowed. If the threshold is exceeded, the routine
+    shall return <code class="Er">MJO_FAIL</code> and set
+    <var class="Va">errno</var> to <code class="Er">E2BIG</code>.</p>
+<p class="Pp">If the rule mjo_arg_rule_mask_on_error_suppress_message is set
+    diagnostic information shall not be printed.</p>
+<p class="Pp">If the rule mjo_arg_rule_mask_on_error_keep_going is set,
+    regardless of error conditions, processing will continue until the command
+    list is consumed.</p>
+<p class="Pp">Upon success, the return code shall be
+    <code class="Er">MJO_OK</code>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">A dash (&#x2018;-&#x2019;) is a single ASCII character 0x2d and an
+    emdash is one dash followed by another. That is, it is a combination of two
+    ASCII 0x2d characters.</p>
+<p class="Pp">When a dash is specified by itself, it is treated and searched for
+    in the table as any other option would be.</p>
+<p class="Pp">When an emdash is specified by itself, it is treated as the end of
+    all options and the start of the operand list. That is, everything after the
+    emdash is treated as an operand.</p>
+<p class="Pp">Simplified BNF:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>option ::= &lt;include&gt; | &lt;short&gt; | &lt;long&gt; | &lt;utf8&gt; | &lt;space&gt; &lt;option&gt;
+include ::= '@' &lt;filename&gt;
+filename ::= &lt;utf8&gt;
+short ::= &lt;dash&gt; &lt;space&gt; | &lt;dash&gt; &lt;sopt&gt;
+long ::= &lt;emdash&gt; &lt;space&gt; | &lt;emdash&gt; &lt;lopt&gt; &lt;arg&gt;
+dash :: = '-'
+emdash ::= '-' '-'
+arg ::= &lt;empty&gt; | &lt;assignment&gt; &lt;utf8&gt;
+sopt ::= &lt;alphanum&gt; | &lt;alphanum&gt; &lt;sopt&gt;
+lopt ::= &lt;alphanum&gt; | &lt;alphanum&gt; &lt;lopt&gt; | &lt;alphanum&gt; &lt;minus&gt; &lt;lopt&gt;
+empty ::=
+assignment ::= &lt;space&gt; | '='
+alphanum ::= &quot;a-z&quot; | &quot;A-Z&quot; | &quot;0-9&quot;
+minus ::= '-' | &lt;minus&gt;
+utf8 ::= UTF-8 text | &lt;escape&gt;
+space ::= mjo_utf8_is_whitespace()
+escape ::= '\' 'a' |
+	'\' 'b' |
+	'\' 'e' |
+	'\' 'f' |
+	'\' 'n' |
+	'\' 'r' |
+	'\' 't' |
+	'\' 'u' |
+	'\' &lt;octal&gt;
+	'\' 'x' &lt;hex&gt;
+octal ::= '0-9' | &lt;octal&gt;
+hex ::= '0-9' | 'a-f' | 'A-F' | &lt;hex&gt;</pre>
+</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 25, 2021</td>
+    <td class="foot-os">OpenBSD 7.0</td>
+  </tr>
+</table>
+</body>
+</html>

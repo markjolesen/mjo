@@ -88,8 +88,8 @@ Utility routines, which simplify an abstract and cohesive interface to common ta
 | --------- | --------------------------------------------------------------- |
 | mread.h | high level read operations on a input stream |
 | marg.h | argument parser |
-| mistream | high level abstract input reader |
-| mvector | abstract container vector/array of objects  |
+| mistream.h | high level abstract input reader |
+| mvector.h | abstract container vector/array of objects  |
 
 ## mread.h
 - mjo_read_line

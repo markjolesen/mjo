@@ -41,7 +41,7 @@
 .Fa "void const * i_array"
 .Fa "size_t const i_object_size"
 .Fa "size_t const i_slots"
-.Fa "mjo_search_compare_t const i_compare"
+.Fa "void (*i_compare)(int *const, void const *, void const *)
 .Fa "void const *const i_object_to_find"
 .Fc
 .Sh DESCRIPTION

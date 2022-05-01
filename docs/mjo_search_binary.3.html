@@ -70,8 +70,8 @@
     o_found</var>, <var class="Fa">size_t * const o_slot</var>,
     <var class="Fa">void const * i_array</var>, <var class="Fa">size_t const
     i_object_size</var>, <var class="Fa">size_t const i_slots</var>,
-    <var class="Fa">mjo_search_compare_t const i_compare</var>,
-    <var class="Fa">void const *const i_object_to_find</var>);</p>
+    <var class="Fa">void (*i_compare)(int *const, void const *, void const
+    *)</var>, <var class="Fa">void const *const i_object_to_find</var>);</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>

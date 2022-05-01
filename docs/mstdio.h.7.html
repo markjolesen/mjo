@@ -56,9 +56,8 @@
 <div class="manual-text">
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
-<p class="Pp"><code class="Nm">mjo_read</code>,
-    <code class="Nm">mjo_read_line</code> &#x2014; <span class="Nd">stream read
-    routines</span></p>
+<p class="Pp"><code class="Nm">mjo_read</code> &#x2014; <span class="Nd">stream
+    read routines</span></p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="LIBRARY"><a class="permalink" href="#LIBRARY">LIBRARY</a></h1>
@@ -80,15 +79,11 @@
 };
 <p class="Pp">
   <br/>
-  <var class="Vt">typedef ptrdiff_t mjo_handle_t;</var>
-  <br/>
-  <var class="Vt">typedef ssize_t;</var></p>
+  <var class="Vt">typedef ptrdiff_t mjo_handle_t</var></p>
 <p class="Pp">
   <br/>
-  <var class="Ft">int</var>
-  <br/>
-  <code class="Fn">(*mjo_read_t)</code>(<var class="Fa">mjo_handle_t</var>,
-    <var class="Fa">void*</var>, <var class="Fa">size_t</var>);</p>
+  <var class="Vt">typedef ssize_t (*mjo_read_t)(mjo_handle_t, void *,
+    size_t)</var></p>
 <p class="Pp">
   <br/>
   <var class="Ft">int</var>
@@ -124,8 +119,8 @@
     <td>indicator that the end of file has been reached</td>
   </tr>
   <tr id="mjo_status_truncated">
-    <td><a class="permalink" href="#mjo_status_truncated"><code class="Dv">mjo_status_truncated
-      indicator that data has been truncated</code></a></td>
+    <td><a class="permalink" href="#mjo_status_truncated"><code class="Dv">mjo_status_truncated</code></a></td>
+    <td>indicator that data has been truncated</td>
   </tr>
 </table>
 </section>

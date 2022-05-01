@@ -11,17 +11,17 @@
 # send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 #
 
-if [[ ! -d ./htmlman ]]; then
-  mkdir ./htmlman
+if [[ ! -d ./docs ]]; then
+  mkdir ./docs
 else
-  rm -f ./htmlman/*
+  rm -f ./docs/*
 fi
 
 for path in `find . -name "*.[37]" -type f -print`
 do
 
   outf=`basename ${path}`
-  outf="./htmlman/${outf}.html"
+  outf="./docs/${outf}.html"
   `mandoc -mdoc -T html -O includes=%I.html -O man=%N.%S.html ${path} > ${outf}`
 
 done
@@ -64,7 +64,7 @@ EOF
 
 echo '<ul style= "list-style-type: none">' >> /tmp/index.html
 
-for path in `find ./htmlman -name "*.html" -type f -print`
+for path in `find ./docs -name "*.html" -type f -print`
 do
 
   outf=`basename ${path}`
@@ -80,4 +80,4 @@ cat << EOF >> /tmp/index.html
 
 EOF
 
-mv /tmp/index.html ./htmlman/
+mv /tmp/index.html ./docs/

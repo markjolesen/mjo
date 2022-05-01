@@ -30,8 +30,7 @@
 .Os
 .Dt mstdio.h 7
 .Sh NAME
-.Nm mjo_read ,
-.Nm mjo_read_line
+.Nm mjo_read
 .Nd stream read routines
 .Sh LIBRARY
 .Lb libmjo
@@ -47,15 +46,9 @@ enum mjo_status {
 };
 .No
 .Pp
-.Vt typedef ptrdiff_t mjo_handle_t;
-.Vt typedef ssize_t;
+.Vt typedef ptrdiff_t mjo_handle_t
 .Pp
-.Ft int
-.Fo (*mjo_read_t) 
-.Fa "mjo_handle_t" 
-.Fa "void*" 
-.Fa "size_t"
-.Fc
+.Vt typedef ssize_t (*mjo_read_t)(mjo_handle_t, void *, size_t)
 .Pp
 .Ft int
 .Fo mjo_read
@@ -75,7 +68,7 @@ Provides routines to read from an abstract stream and object handle.
 .It Dv mjo_status_ok Ta indicator that the operation completed successfully
 .It Dv mjo_status_error Ta indicator that the operation failed
 .It Dv mjo_status_eof Ta indicator that the end of file has been reached
-.It Dv mjo_status_truncated indicator that data has been truncated
+.It Dv mjo_status_truncated Ta indicator that data has been truncated
 .El
 .Sh SEE ALSO
 .Xr read 2 /

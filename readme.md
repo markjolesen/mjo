@@ -41,44 +41,44 @@ not all platforms are POSIX compatible. Thus, this library attempts
 to fill in the gaps without bloat.
 
 ## mdirect.h
-- struct dirent
-- opendir()
-- readdir()
-- closedir()
+- [struct dirent](https://markjolesen.github.io/mjo/mdirect.h.7.html)
+- [opendir()](https://markjolesen.github.io/mjo/mdirect.h.7.html)
+- [readdir()](https://markjolesen.github.io/mjo/mdirect.h.7.html)
+- [closedir()](https://markjolesen.github.io/mjo/mdirect.h.7.html)
 
 ## mr7.h
-- mjo_r7_hash()
-- mjo_r7_shift_left()
-- mjo_r7_shift_right()
-- mjo_r7_zero()
+- [mjo_r7_hash()](https://markjolesen.github.io/mjo/mjo_r7_hash.3.html)
+- [mjo_r7_shift_left()](https://markjolesen.github.io/mjo/mr7.h.7.html)
+- [mjo_r7_shift_right()](https://markjolesen.github.io/mjo/mr7.h.7.html)
+- [mjo_r7_zero()](https://markjolesen.github.io/mjo/mr7.h.7.html)
 
 ## mstdio.h
-- mjo_handle_t
-- mjo_read_t
-- mjo_status_ok
-- mjo_status_invalid
-- mjo_status_eof
-- mjo_status_truncated
-- mjo_read()
+- [mjo_handle_t](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_read_t](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_status_ok](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_status_invalid](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_status_eof](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_status_truncated](https://markjolesen.github.io/mjo/mstdio.h.7.html)
+- [mjo_read()](https://markjolesen.github.io/mjo/mjo_read.3.html)
 
 ## mu8.h
-- mjo_u8_calc()
-- mjo_u8_trim()
-- mjo_u8_trim_left()
-- mjo_u8_trim_right()
-- mjo_u8_validate()
-- mjo_u8_validate_nth_sequence()
+- [mjo_u8_calc()](https://markjolesen.github.io/mjo/mjo_u8_calc.3.html)
+- [mjo_u8_trim()](https://markjolesen.github.io/mjo/mjo_u8_trim.3.html)
+- [mjo_u8_trim_left()](https://markjolesen.github.io/mjo/mjo_u8_trim.3.html)
+- [mjo_u8_trim_right()](https://markjolesen.github.io/mjo/mjo_u8_trim.3.html)
+- [mjo_u8_validate()](https://markjolesen.github.io/mjo/mjo_u8_validate.3.html)
+- [mjo_u8_validate_nth_sequence()](https://markjolesen.github.io/mjo/mu8.h.7.html))
 
 ## mutf8.h
-- mjo_utf8_max_octets
-- mjo_utf8_replacement
-- struct mjo_utf8
-- mjo_utf8_compare()
-- mjo_utf8_compose()
-- mjo_utf8_is_punctuation()
-- mjo_utf8_is_quote()
-- mjo_utf8_is_whitespace()
-- mjo_utf8_strchr()
+- [mjo_utf8_max_octets](https://markjolesen.github.io/mjo/mutf8.h.7.html)
+- [mjo_utf8_replacement](https://markjolesen.github.io/mjo/mutf8.h.7.html)
+- [struct mjo_utf8](https://markjolesen.github.io/mjo/mutf8.h.7.html)
+- [mjo_utf8_compare()](https://markjolesen.github.io/mjo/mutf8.h.7.html)
+- [mjo_utf8_compose()](https://markjolesen.github.io/mjo/mjo_utf8_compose.3.html)
+- [mjo_utf8_is_punctuation()](https://markjolesen.github.io/mjo/mjo_utf8_is_punctuation.3.html)
+- [mjo_utf8_is_quote()](https://markjolesen.github.io/mjo/mjo_utf8_is_quote.3.html)
+- [mjo_utf8_is_whitespace()](https://markjolesen.github.io/mjo/mjo_utf8_is_whitespace.3.html)
+- [mjo_utf8_strchr()](https://markjolesen.github.io/mjo/mutf8.h.7.html))
 
 # mjoextra library
 

@@ -19,7 +19,7 @@
 #include "_vector.h"
 
 extern int
-  mjo_vector_shift_left(mjo_vector_t io_var,
+  mjo_vector_shift_right(mjo_vector_t io_var,
                         size_t const i_slot,
                         size_t const i_count)
 {

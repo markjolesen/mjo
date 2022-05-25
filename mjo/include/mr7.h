@@ -184,6 +184,12 @@ extern "C"
                        void (*)(void **const));
 
   extern void
+    mjo_r7_to_upper(void *const, size_t const);
+
+  extern void
+    mjo_r7_to_lower(void *const, size_t const);
+
+  extern void
     mjo_r7_zero(void *const, size_t const);
 
 #  if defined(__cplusplus)

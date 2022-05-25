@@ -183,32 +183,6 @@ enum mjo_r7 {
 .Fa "size_t const"
 .Fa "unsigned char const"
 .Fc
-.Pp
-.Ft int
-.Fo mjo_r7_shift_left
-.Fa "void *io_vector"
-.Fa "size_t const i_slot"
-.Fa "size_t const i_count"
-.Fa "size_t const i_size"
-.Fa "size_t const i_slots"
-.Fa "void (*i_discharge)(void **const)"
-.Fc
-.Pp
-.Ft int
-.Fo mjo_r7_shift_right
-.Fa "void *io_vector"
-.Fa "size_t const i_slot"
-.Fa "size_t const i_count"
-.Fa "size_t const i_size"
-.Fa "size_t const i_slots"
-.Fa "void (*i_discharge)(void **const))"
-.Fc
-.Pp
-.Ft void
-.Fo mjo_r7_zero
-.Fa "void *const io_block"
-.Fa "size_t const i_size"
-.Fc
 .Sh INCLUDES
 .Dl In stddef.h
 .Sh DESCRIPTION

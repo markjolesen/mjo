@@ -50,5 +50,23 @@ extern "C"
 
 #  endif
 
+#if defined(_MSC_VER) || defined(__MSVCRT__) || defined(__WATCOMC__)
+
+#    if defined(__cplusplus)
+extern "C"
+{
+#    endif
+
+extern struct dirent *
+  mjo_readdir(DIR *const);
+
+#    if defined(__cplusplus)
+}
+#    endif
+
+#define  readdir(e) mjo_readdir(e)
+
+#endif
+
 #  define __mdirect_h__
 #endif

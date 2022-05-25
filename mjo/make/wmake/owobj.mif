@@ -30,11 +30,16 @@ LIB_OBJS= &
 	$(OBJ)\mpunct.$(SFX) &
 	$(OBJ)\mquote.$(SFX) &
 	$(OBJ)\mr7hash.$(SFX) &
+	$(OBJ)\mr7lwr.$(SFX) &
+	$(OBJ)\mr7upr.$(SFX) &
+	$(OBJ)\mr7zero.$(SFX) &
 	$(OBJ)\mread.$(SFX) &
+	$(OBJ)\mreaddir.$(SFX) &
 	$(OBJ)\mrealloc.$(SFX) &
 	$(OBJ)\mshiftl.$(SFX) &
 	$(OBJ)\mshiftr.$(SFX) &
 	$(OBJ)\mspace.$(SFX) &
+	$(OBJ)\mstrchr.$(SFX) &
 	$(OBJ)\mstrdup.$(SFX) &
 	$(OBJ)\mtrim.$(SFX) &
 	$(OBJ)\mtriml.$(SFX) &

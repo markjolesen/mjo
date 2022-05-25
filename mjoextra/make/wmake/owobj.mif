@@ -13,52 +13,52 @@
 
 
 LIB_OBJS= &
-	$(OBJ)\acquiesc.$(SFX) &
+	$(OBJ)\_lookup.$(SFX) &
+	$(OBJ)\_missing.$(SFX) &
+	$(OBJ)\_optval.$(SFX) &
+	$(OBJ)\_parincl.$(SFX) &
+	$(OBJ)\_parlong.$(SFX) &
+	$(OBJ)\_parop.$(SFX) &
+	$(OBJ)\_parshrt.$(SFX) &
+	$(OBJ)\_push.$(SFX) &
+	$(OBJ)\_rd.$(SFX) &
 	$(OBJ)\free.$(SFX) &
+	$(OBJ)\_rdesc.$(SFX) &
+	$(OBJ)\_rdstm.$(SFX) &
 	$(OBJ)\lexfree.$(SFX) &
 	$(OBJ)\lexnew.$(SFX) &
 	$(OBJ)\lexpush.$(SFX) &
 	$(OBJ)\lexread.$(SFX) &
-	$(OBJ)\_lookup.$(SFX) &
-	$(OBJ)\_missing.$(SFX) &
-	$(OBJ)\new.$(SFX) &
-	$(OBJ)\option.$(SFX) &
-	$(OBJ)\_optval.$(SFX) &
-	$(OBJ)\parblock.$(SFX) &
-	$(OBJ)\parfile.$(SFX) &
-	$(OBJ)\_parincl.$(SFX) &
-	$(OBJ)\_parlong.$(SFX) &
-	$(OBJ)\_parop.$(SFX) &
-	$(OBJ)\parse.$(SFX) &
-	$(OBJ)\_parshrt.$(SFX) &
-	$(OBJ)\parvec.$(SFX) &
-	$(OBJ)\print.$(SFX) &
-	$(OBJ)\_push.$(SFX) &
+	$(OBJ)\acquiesc.$(SFX) &
 	$(OBJ)\rdarg.$(SFX) &
-	$(OBJ)\rdcsv.$(SFX) &
-	$(OBJ)\_rdesc.$(SFX) &
 	$(OBJ)\rdincl.$(SFX) &
-	$(OBJ)\rdline.$(SFX) &
 	$(OBJ)\rdlong.$(SFX) &
 	$(OBJ)\rdop.$(SFX) &
-	$(OBJ)\_rd.$(SFX) &
 	$(OBJ)\rdshort.$(SFX) &
-	$(OBJ)\_rdstm.$(SFX) &
-	$(OBJ)\sblknew.$(SFX) &
 	$(OBJ)\scansep.$(SFX) &
 	$(OBJ)\scansp.$(SFX) &
+	$(OBJ)\new.$(SFX) &
+	$(OBJ)\option.$(SFX) &
+	$(OBJ)\parblock.$(SFX) &
+	$(OBJ)\parfile.$(SFX) &
+	$(OBJ)\parse.$(SFX) &
+	$(OBJ)\parvec.$(SFX) &
+	$(OBJ)\print.$(SFX) &
+	$(OBJ)\tointern.$(SFX) &
+	$(OBJ)\tostr.$(SFX) &
+	$(OBJ)\value.$(SFX) &
+	$(OBJ)\vecnew.$(SFX) &
+	$(OBJ)\sblknew.$(SFX) &
 	$(OBJ)\sfilenew.$(SFX) &
 	$(OBJ)\sfree.$(SFX) &
 	$(OBJ)\spush.$(SFX) &
 	$(OBJ)\sread.$(SFX) &
+	$(OBJ)\rdcsv.$(SFX) &
+	$(OBJ)\rdline.$(SFX) &
 	$(OBJ)\str.$(SFX) &
-	$(OBJ)\tointern.$(SFX) &
-	$(OBJ)\tostr.$(SFX) &
-	$(OBJ)\value.$(SFX) &
 	$(OBJ)\vclear.$(SFX) &
 	$(OBJ)\vcount.$(SFX) &
 	$(OBJ)\vdequeue.$(SFX) &
-	$(OBJ)\vecnew.$(SFX) &
 	$(OBJ)\vfree.$(SFX) &
 	$(OBJ)\vgrow.$(SFX) &
 	$(OBJ)\vnew.$(SFX) &

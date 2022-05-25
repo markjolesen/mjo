@@ -29,8 +29,11 @@ target_sources(libmjo PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/mpunct.c
   ${CMAKE_CURRENT_LIST_DIR}/mquote.c
   ${CMAKE_CURRENT_LIST_DIR}/mr7hash.c
+  ${CMAKE_CURRENT_LIST_DIR}/mr7lwr.c
+  ${CMAKE_CURRENT_LIST_DIR}/mr7upr.c
   ${CMAKE_CURRENT_LIST_DIR}/mr7zero.c
   ${CMAKE_CURRENT_LIST_DIR}/mread.c
+  ${CMAKE_CURRENT_LIST_DIR}/mreaddir.c
   ${CMAKE_CURRENT_LIST_DIR}/mrealloc.c
   ${CMAKE_CURRENT_LIST_DIR}/mshiftl.c
   ${CMAKE_CURRENT_LIST_DIR}/mshiftr.c

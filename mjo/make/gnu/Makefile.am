@@ -35,8 +35,11 @@ libmjo_a_SOURCES = \
 	${level}/src/mpunct.c \
 	${level}/src/mquote.c \
 	${level}/src/mr7hash.c \
+	${level}/src/mr7lwr.c \
+	${level}/src/mr7upr.c \
 	${level}/src/mr7zero.c \
 	${level}/src/mread.c \
+	${level}/src/mreaddir.c \
 	${level}/src/mrealloc.c \
 	${level}/src/mshiftl.c \
 	${level}/src/mshiftr.c \
